@@ -14,4 +14,4 @@ const DB_USER = "root";
 const DB_PASSW = "osopolar1";
 const DB_DBNAME = "cime";
 const DB_HOST = "localhost";
-const DB_PORT = "3306";
+const DB_PORT = 3306;
