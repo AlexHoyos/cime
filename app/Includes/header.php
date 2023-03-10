@@ -25,5 +25,3 @@
             <a href="" class="nav-link-6">Registro</a>
         </nav>
     </header>
-</body>
-</html>
