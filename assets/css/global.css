@@ -1,0 +1,53 @@
+:root
+{
+    --azul:#2874A6;
+    --dorado:#B7950B;
+    --gris-oscuro:#1C2833;
+    --gris-claro:#2C3E50;
+    --fuente:'Tilt Neon', cursive;
+}
+header
+{
+    height:100%;
+    width:100%;
+    font-family: var(--fuente);
+}
+
+.logo
+{
+    background-color:var(--azul);
+}
+.buscar
+{
+    width:450px;
+    height:40px;
+    margin-left:200px;
+    border-radius:5px;
+}
+.btnbuscar
+{
+    width:120px;
+    height:40px;
+    border-radius:5px;
+    background-color:var(--dorado);
+    margin-left:50px;
+}
+nav
+{
+    background-color:var(--gris-oscuro);
+    display:flex;
+    padding:10px;
+}
+a{
+    text-decoration:none;
+    color:#B7950B;
+    margin-left:30px;
+    background-color:var(--gris-claro);
+    padding:5px;
+}
+.nav-link-5
+{
+    margin-left:500px;
+    background-color:var(--gris-claro);
+    padding:5px;
+}
