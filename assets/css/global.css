@@ -1,0 +1,45 @@
+header
+{
+    height:100%;
+    width:100%;
+    font-family: 'Tilt Neon', cursive;
+}
+
+.logo
+{
+    background-color:#2874A6;
+}
+.buscar
+{
+    width:450px;
+    height:40px;
+    margin-left:200px;
+    border-radius:5px;
+}
+.btnbuscar
+{
+    width:120px;
+    height:40px;
+    border-radius:5px;
+    background-color:#B7950B;
+    margin-left:50px;
+}
+nav
+{
+    background-color:#1C2833;
+    display:flex;
+    padding:10px;
+}
+a{
+    text-decoration:none;
+    color:#B7950B;
+    margin-left:30px;
+    background-color:#2C3E50;
+    padding:5px;
+}
+.nav-link-5
+{
+    margin-left:500px;
+    background-color:#2C3E50;
+    padding:5px;
+}
