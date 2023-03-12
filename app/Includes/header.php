@@ -36,7 +36,7 @@
                         <a class="nav-link" href="<?=WEB_URL.'/nosotros.php'?>">Sobre Nosotros</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contacto</a>
+                        <a class="nav-link" href="<?=WEB_URL.'/contacto.php'?>">Contacto</a>
                     </li>
 
                 </ul>

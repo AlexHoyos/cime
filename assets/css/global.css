@@ -10,6 +10,11 @@
 * {
     font-family: var(--fuente);
 }
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
 header
 {
     height:100%;
@@ -73,4 +78,5 @@ footer {
     background-color: var(--gris-oscuro);
     color: var(--light);
     padding: 8px;
+    margin-top: auto;
 }
