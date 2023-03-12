@@ -1,8 +1,8 @@
 <?php
 
-    include __DIR__ . '/app/main.php';
-    include __DIR__ . '/app/Includes/header.php';
+    include './app/main.php';
+    include './app/Includes/header.php';
     
-    include __DIR__ .'/app/Includes/footer.php';
+    include './app/Includes/footer.php';
 
 ?>

@@ -19,7 +19,7 @@
                 <button type="button" class="btnbuscar">Buscar</button>
             </form>
         </div>
-        <nav class="navbar navbar-expand-lg" id="headerNav">
+        <nav class="navbar navbar-expand-lg p-0" id="headerNav">
             <div class="container-fluid">
                 <button class="navbar-toggler ms-auto mb-lg-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa-solid fa-bars text-light"></i>
@@ -33,7 +33,7 @@
                         <a class="nav-link" href="#">Proximamente</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Sobre Nosotros</a>
+                        <a class="nav-link" href="<?=WEB_URL.'/nosotros.php'?>">Sobre Nosotros</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Contacto</a>
