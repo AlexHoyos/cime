@@ -5,6 +5,7 @@
 */
 
 const WEB_URL = "http://localhost";
+const WEB_PATH = __DIR__;
 
 /*
     DATABASE CONSTANTS
