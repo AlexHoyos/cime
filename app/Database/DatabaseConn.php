@@ -1,6 +1,6 @@
 <?php
 
-namespace Cime\Database;
+namespace CIME\Database;
 
 class DatabaseConn {
 
