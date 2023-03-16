@@ -23,7 +23,7 @@ class PeliculaDB extends ADBModel {
     }
 
     public static function transformRow($row): Pelicula|null {
-            if(sizeof($row) > 0)
+            if($row != null)
                 return new Pelicula($row->id, $row->titulo, $row->sinopsis, $row->portada, $row->wallpaper, $row->duracion, $row->id_clasificacion);
             
             return null;

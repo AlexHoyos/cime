@@ -21,7 +21,7 @@ class ClasificacionDB extends ADBModel {
     }
 
     public static function transformRow($row): Clasificacion|null {
-            if(sizeof($row) > 0)
+            if($row != null)
                 return new Clasificacion($row->id, $row->nombre, $row->descripcion, $row->ninos, $row->adolescentes);
             
             return null;

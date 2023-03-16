@@ -15,7 +15,7 @@ abstract class ADBModel {
     abstract public function delete():bool;
     abstract public function update():bool;
 
-    abstract protected static function getAll():DBPagination;
+    abstract public static function getAll():DBPagination;
     abstract public static function getById($id): ADBModel|null;
 
     protected static function _getRows($class = Self::class, $atributes = [], $conditions = "", $orderBy = ""):DBPagination {

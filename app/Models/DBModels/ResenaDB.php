@@ -4,22 +4,25 @@ namespace CIME\Models\DBModels;
 
 use CIME\Database\ADBModel;
 use CIME\Database\DBPagination;
-use CIME\Models\Sala;
+use CIME\Models\Resena;
 
-class SalaDB extends ADBModel {
+class ResenaDB extends ADBModel {
 
     public function __construct(
         protected $id,
-        protected $mapa
+        protected $calificacion,
+        protected $detalles,
+        protected $id_usuario,
+        protected $id_pelicula
     ){}
 
     protected static function getTablename(): String {
-        return "salas";
+        return "resena";
     }
 
-    public static function transformRow($row): Sala|null {
+    public static function transformRow($row): Resena|null {
             if($row != null)
-                return new Sala($row->id, $row->mapa);
+                return new Resena($row->id, $row->calificacion, $row->detalles, $row->id_usuario, $row->id_pelicula);
             
             return null;
     }
@@ -30,20 +33,21 @@ class SalaDB extends ADBModel {
 
     /* CRUD FUNCTIONS */
     public function create():bool {
-        return Self::_executeQuery(" INSERT INTO  " . Self::getTablename() . " (mapa) VALUES ({$this->mapa})");
+        $values = [$this->calificacion, $this->detalles, $this->id_usuario, $this->id_pelicula];
+        return Self::_executeQuery(" INSERT INTO  " . Self::getTablename() . " (calificacion, detalles, id_usuario, id_pelicula) VALUES (". implode(", ", $values) . ")");
     }
     public function delete():bool{
         return Self::_executeQuery(" DELETE FROM  " . Self::getTablename() . " WHERE id = " . intval($this->id));
     }
     public function update():bool{
-        return Self::_executeQuery("UPDATE ". Self::getTablename() . " SET mapa = {$this->mapa}, WHERE id = " . intval($this->id) );
+        return false;
     }
 
     public static function getAll():DBPagination{
-        return Sala::_getRows(Self::class);     
+        return Resena::_getRows(Self::class);     
     }
     
-    static public function getById($id): Sala|null {
+    static public function getById($id): Resena|null {
         $id = intval($id);
         return Self::transformRow(
             Self::_fetchQuery("SELECT * FROM ".Self::getTablename()." WHERE id = {$id} ")
