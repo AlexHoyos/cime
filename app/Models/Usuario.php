@@ -4,7 +4,7 @@ namespace CIME\Models;
 
 use CIME\Models\DBModels\UsuarioDB;
 
-class Usuario extends UsuarioDB {
+class Usuario extends UsuarioDB{
 
     public function getId() { return $this->id; }
     public function getNombre() { return $this->nombre; }
@@ -22,5 +22,4 @@ class Usuario extends UsuarioDB {
     public function setPassword($password) { $this->password = $password; }
     public function setRol($rol) { $this->rol = $rol; }
     public function setSecureCode($secure_code) { $this->secure_code = $secure_code; }
-
 }
