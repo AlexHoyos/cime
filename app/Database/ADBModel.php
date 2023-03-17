@@ -34,16 +34,24 @@ abstract class ADBModel {
 
     }
 
-    protected static function _fetchQuery(String $query): Array{
+    protected static function _fetchQuery(String $query, bool $onlyFirst = false): Array|object|null {
         try {
 
             $stmt = ADBModel::$dbConn->prepare($query);
             $stmt->execute();
             $rows = $stmt->fetchAll(\PDO::FETCH_OBJ);
+
+            if(sizeof($rows) == 0 && $onlyFirst)
+                $rows[0] = null;
+
+            if($onlyFirst)
+                return $rows[0];
+
             return $rows;
 
         } catch(\PDOException $e){
             return [];
+
         }
     }
 
