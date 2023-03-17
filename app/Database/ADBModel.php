@@ -50,7 +50,8 @@ abstract class ADBModel {
             return $rows;
 
         } catch(\PDOException $e){
-            return [null];
+            return [];
+
         }
     }
 

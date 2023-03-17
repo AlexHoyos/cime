@@ -2,7 +2,6 @@
 
 use CIME\Database\ADBModel;
 use CIME\Database\DatabaseConn;
-use CIME\Models\Enums\UserRoles;
 
 include_once __DIR__.'./_conf_const.php';
 
