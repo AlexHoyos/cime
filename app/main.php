@@ -3,7 +3,7 @@
 use CIME\Database\ADBModel;
 use CIME\Database\DatabaseConn;
 
-include_once __DIR__.'./_conf_const.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'./_conf_const.php';
 
 spl_autoload_register(function ($class_name) {
     if(str_contains($class_name, "Enums"))
