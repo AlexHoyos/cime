@@ -14,6 +14,7 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    background-color: #F8F8F8;
 }
 header
 {
@@ -79,4 +80,37 @@ footer {
     color: var(--light);
     padding: 8px;
     margin-top: auto;
+}
+/* Estilos para la sección de inicio de sesión */
+
+.login-form {
+    width: 340px;
+    margin: 50px auto;
+    font-size: 15px;
+    border: 1px solid #DDD;
+    border-radius: 5px;
+    padding: 20px;
+    background-color: #FFF;
+}
+.login-form h2 {
+    margin-bottom: 25px;
+    text-align: center;
+    font-size: 24px;
+}
+.form-control, .btn {
+    min-height: 38px;
+    border-radius: 2px;
+}
+.btn {        
+    font-size: 15px;
+    font-weight: bold;
+}
+.forgot-password {
+    text-decoration: underline;
+}
+.logo {
+    display: block;
+    margin: 0 auto;
+    font-size: 48px;
+    text-align: center;
 }
