@@ -97,18 +97,21 @@ footer {
     text-align: center;
     font-size: 24px;
 }
-.form-control, .btn {
+.login-form .form-group {
+    margin-top:15px;
+}
+.login-form .form-control, .login-form .btn {
     min-height: 38px;
     border-radius: 2px;
 }
-.btn {        
+.login-form .btn {        
     font-size: 15px;
     font-weight: bold;
 }
 .forgot-password {
     text-decoration: underline;
 }
-.logo {
+.login-icon {
     display: block;
     margin: 0 auto;
     font-size: 48px;

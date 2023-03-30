@@ -9,10 +9,8 @@
         <div class="col-12" id="pageTitle">
             <h1>Iniciar Sesion</h1>
         </div>
-
-
     <div class="login-form">
-        <div class="logo">
+        <div class="login-icon">
             <i class="fa-solid fa-key"></i>
         </div>
         <h2>Iniciar Sesión</h2>
@@ -26,16 +24,11 @@
             <div class="form-group">
                 <button type="submit" class="btn btn-primary btn-block">Iniciar Sesión</button>
             </div>
-            <div class="clearfix">
+            <div class="form-group">
                 <a href="#" class="forgot-password pull-right">¿Olvidaste tu Contraseña?</a>
             </div>        
         </form>
     </div>
-   
-
-
-      
-
     </section>
 
 <?php
