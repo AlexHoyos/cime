@@ -60,4 +60,10 @@ class UsuarioDB extends ADBModel {
         );
     }
 
+    static public function getByEmail($email): Usuario|null {
+        return Self::transformRow(
+            Self::_fetchQuery("SELECT * FROM ".Self::getTablename()." WHERE email = {$email} ", true)
+        );
+    }
+
 }
