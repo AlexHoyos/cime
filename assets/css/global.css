@@ -117,3 +117,7 @@ footer {
     font-size: 48px;
     text-align: center;
 }
+
+.register-form {
+    width: 65%;
+}
