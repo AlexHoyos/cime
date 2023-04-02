@@ -8,40 +8,41 @@ include './app/Includes/header.php';
     <div class="col-12" id="pageTitle">
         <h1>Registro</h1>
     </div>
-    <div class="login-form">
+    <div class="login-form register-form">
         <div class="login-icon">
             <i class="fa-solid fa-users-viewfinder"></i>
         </div>
-        <h2>Registro</h2>
         <form action="register.php" method="post">
-            <div class="form-group">
-                <input type="text" class="form-control" name="nombre" placeholder="Nombre (s)" required="required">
-                <input type="text" class="form-control" name="apellido" placeholder="Apellido" required="required">
+            <div class="input-group my-2">
+                <input type="text" class="form-control mx-2" name="nombre" placeholder="Nombre (s)" required="required">
+                <input type="text" class="form-control mx-2" name="apellido" placeholder="Apellido" required="required">
             </div>
-            <div class="form-group">
-                <input type="email" class="form-control" name="email" placeholder="Correo Electronico"
+            <div class="input-group my-2">
+                <input type="email" class="form-control mx-2" name="email" placeholder="Correo Electronico"
                     required="required">
             </div>
-            <div class="form-group">
-                <input type="number" class="form-control" name="telefono" placeholder="Telefono" required="required">
-                <input type="date" class="form-control" name="fechanacimiento" placeholder="Fecha de Nacimiento"
+            <div class="input-group my-2">
+                <input type="number" class="form-control mx-2" name="telefono" placeholder="Telefono" required="required">
+                <input type="date" class="form-control mx-2" name="fechanacimiento" placeholder="Fecha de Nacimiento"
                     required="required">
             </div>
-            <div class="form-group">
-                <input type="password" class="form-control" name="password" placeholder="Constraseña"
+            <div class="input-group my-2">
+                <input type="password" class="form-control mx-2" name="password" placeholder="Constraseña"
                     required="required">
-                <input type="password" class="form-control" name="confirmpassword" placeholder="Repite Contraseña"
-                    required="required">
-            </div>
-            <div class="imgcaptcha">
-                <img src="<?= WEB_URL ?>/app/Includes/CaptchaImg.php" height="70px" width="120px">
-                <input type="text" class="form-control" name="captcha" placeholder="Texto en la imagen"
+                <input type="password" class="form-control mx-2" name="confirmpassword" placeholder="Repite Contraseña"
                     required="required">
             </div>
-            <div class="form-group">
-                <input type="checkbox" class="form-control" name="condiciones" id="condiciones" value="condicion">
-                <label for="condiciones"> Acepto los terminos y condiciones</label>
-                <button type="submit" class="btn btn-primary btn-block">Registrarme</button>
+            <div class="input-group my-2 ps-2">
+                <img src="<?= WEB_URL ?>/app/Includes/CaptchaImg.php" width="120px">
+                <input type="text" class="form-control mx-2" name="captcha" placeholder="Texto en la imagen"
+                    required="required">
+            </div>
+            <div class="d-flex flex-row justify-content-around px-2 my-2">
+                <div class="input-group">
+                    <input type="checkbox" class="form-check-input" name="condiciones" id="condiciones" value="condicion">
+                    <label for="condiciones" class="ms-1"> Acepto los terminos y condiciones</label>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block float-end">Registrarme</button>
             </div>
         </form>
     </div>
