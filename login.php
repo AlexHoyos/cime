@@ -17,12 +17,13 @@ use CIME\Filters\SessionFilter;
             <i class="fa-solid fa-key"></i>
         </div>
         <h2>Iniciar Sesión</h2>
+        <p class="text-danger" id="error"></p>
         <form action="#" method="post" onsubmit="login(event)">
             <div class="form-group">
-                <input type="email" class="form-control" name="email" placeholder="Correo Electrónico" required="required">
+                <input type="email" class="form-control" name="email" id="correo" placeholder="Correo Electrónico" required="required">
             </div>
             <div class="form-group">
-                <input type="password" class="form-control" name="password" placeholder="Contraseña" required="required">
+                <input type="password" class="form-control" name="password" id="contra" placeholder="Contraseña" required="required">
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary btn-block">Iniciar Sesión</button>
