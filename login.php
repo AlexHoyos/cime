@@ -1,7 +1,10 @@
 <?php
 
+use CIME\Filters\SessionFilter;
+
     include './app/main.php';
     include './app/Includes/header.php';
+    SessionFilter::noExistsUserSession();
 ?>
 
     <section class="row m-0 p-0" id="login">
@@ -14,7 +17,7 @@
             <i class="fa-solid fa-key"></i>
         </div>
         <h2>Iniciar Sesión</h2>
-        <form action="login.php" method="post">
+        <form action="#" method="post" onsubmit="login(event)">
             <div class="form-group">
                 <input type="email" class="form-control" name="email" placeholder="Correo Electrónico" required="required">
             </div>
@@ -30,7 +33,7 @@
         </form>
     </div>
     </section>
-
+    <script src="assets/js/login.js"></script>
 <?php
     include './app/Includes/footer.php';
 ?>
