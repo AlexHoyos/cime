@@ -34,6 +34,7 @@ use CIME\Filters\SessionFilter;
         </form>
     </div>
     </section>
+
     <script src="assets/js/login.js"></script>
 <?php
     include './app/Includes/footer.php';

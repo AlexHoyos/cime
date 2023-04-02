@@ -40,6 +40,8 @@ class UsuarioDB extends ADBModel {
     /* CRUD FUNCTIONS */
     public function create():bool {
         $values = [$this->nombre, $this->apellido, $this->correo, $this->telefono, $this->nacimiento, $this->password, $this->rol];
+        for($i = 0; $i<count($values); $i++)
+            $values[$i] = '"'.$values[$i].'"';
         return Self::_executeQuery(" INSERT INTO  " . Self::getTablename() . " (nombre, apellido, correo, telefono, nacimiento, password, rol) VALUES (". implode(", ", $values) . ")");
     }
     public function delete():bool{
@@ -57,6 +59,12 @@ class UsuarioDB extends ADBModel {
         $id = intval($id);
         return Self::transformRow(
             Self::_fetchQuery("SELECT * FROM ".Self::getTablename()." WHERE id = {$id} ", true)
+        );
+    }
+
+    static public function getByEmail($email): Usuario|null {
+        return Self::transformRow(
+            Self::_fetchQuery("SELECT * FROM ".Self::getTablename()." WHERE correo = '{$email}' ", true)
         );
     }
 
