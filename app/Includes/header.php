@@ -1,3 +1,40 @@
+<?php
+
+use CIME\Models\Usuario;
+
+    $userName = "";
+    $userId = 0;
+    if(isset($_SESSION["userName"])){
+
+        if(!empty($_SESSION["userName"]))
+            $userName = $_SESSION["userName"];
+
+    }
+
+    if(isset($_SESSION["uid"])){
+
+        $sessionUID = intval($_SESSION["uid"]);
+        if($sessionUID != 0){
+            
+            $userId = $sessionUID;
+            if(empty($userName)){
+                $usuario = Usuario::getById($userId);
+                if($usuario instanceof Usuario){
+                    $_SESSION["userName"] = $usuario->getNombre();
+                    $userName = $_SESSION["userName"];
+                } else {
+                    header("Location: ". WEB_URL ."/logout.php");
+                }
+                
+            }
+
+        } else {
+            header("Location: ". WEB_URL ."/logout.php");
+        }
+
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,6 +64,9 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="<?=WEB_URL?>">Cartelera</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">Cartelera</a>
                     </li>
                     <li class="nav-item">
@@ -40,14 +80,30 @@
                     </li>
 
                 </ul>
+            <?php
+
+            if($userId == 0){ ?>
                 <ul class="navbar-nav ms-md-auto">
                     <li class="nav-item">
-                        <a class="nav-link align-self-right" href="#">Iniciar Sesión</a>
+                        <a class="nav-link align-self-right" href="<?=WEB_URL?>/login.php">Iniciar Sesión</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Registro</a>
+                        <a class="nav-link" href="<?=WEB_URL?>/register.php">Registro</a>
                     </li>
                 </ul>
+            <?php } else { ?>
+                <ul class="navbar-nav ms-md-auto">
+                    <li class="nav-item">
+                        <a class="nav-link align-self-right" href="#"><?=$userName?></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Boletos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?=WEB_URL?>/logout.php">Cerrar Sesión</a>
+                    </li>
+                </ul>
+            <?php } ?>
                 </div>
             </div>
         </nav>
