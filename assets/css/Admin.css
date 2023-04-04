@@ -1,0 +1,55 @@
+:root {
+    --azul: #2874A6;
+    --dorado: #B7950B;
+    --light: #dddddd;
+    --gris-oscuro: #222222;
+    --gris-claro: #333333;
+    --fuente: 'Tilt Neon', cursive;
+}
+
+* {
+    font-family: var(--fuente);
+}
+
+nav#headerNav {
+    background-color: var(--gris-oscuro);
+    width: 250px;
+    height: 100%;
+    padding: 5px;
+
+}
+
+#headerNav .nav-link {
+    color: var(--dorado);
+    background: var(--gris-claro);
+    width: 250px;
+    margin-left: -15px;
+    text-align: center;
+
+}
+
+#headerNav .nav-link:hover {
+    filter: opacity(.9)
+}
+
+.LOGO{
+    width: 250px;
+    height: 75px;
+    margin-top: 3px;
+    margin-left: -12px;
+}
+
+.menu {
+    color: var(--light);
+    text-align: center;
+    margin-left: -10px;
+    margin-top: 85px;
+
+}
+
+#headerAbove .buscar {
+    width: 90px;
+    height: 10px;
+
+
+}
