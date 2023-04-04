@@ -48,7 +48,7 @@ class UsuarioDB extends ADBModel {
         return Self::_executeQuery(" DELETE FROM  " . Self::getTablename() . " WHERE id = " . intval($this->id));
     }
     public function update():bool{
-        return Self::_executeQuery("UPDATE ". Self::getTablename() . " SET nombre = {$this->nombre}, apellido = {$this->apellido}, password = {$this->password}, rol = {$this->rol}, secure_code = {$this->secure_code} WHERE id = " . intval($this->id) );
+        return Self::_executeQuery("UPDATE ". Self::getTablename() . " SET nombre = '{$this->nombre}', apellido = '{$this->apellido}', password = '{$this->password}', rol = '{$this->rol}', secure_code = {$this->secure_code} WHERE id = " . intval($this->id) );
     }
 
     static public function getAll():DBPagination{
