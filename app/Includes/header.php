@@ -94,7 +94,7 @@ use CIME\Models\Usuario;
             <?php } else { ?>
                 <ul class="navbar-nav ms-md-auto">
                     <li class="nav-item">
-                        <a class="nav-link align-self-right" href="#"><?=$userName?></a>
+                        <a class="nav-link align-self-right" href="/config.php"><?=$userName?></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Boletos</a>
