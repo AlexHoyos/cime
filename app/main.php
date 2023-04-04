@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 use CIME\Database\ADBModel;
 use CIME\Database\DatabaseConn;
 
