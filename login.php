@@ -29,7 +29,7 @@ use CIME\Filters\SessionFilter;
                 <button type="submit" class="btn btn-primary btn-block">Iniciar Sesión</button>
             </div>
             <div class="form-group">
-                <a href="#" class="forgot-password pull-right">¿Olvidaste tu Contraseña?</a>
+                <a href="/recuperacion.php?paso=1" class="forgot-password pull-right">¿Olvidaste tu Contraseña?</a>
             </div>        
         </form>
     </div>
