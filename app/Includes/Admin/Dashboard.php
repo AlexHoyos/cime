@@ -11,7 +11,7 @@
         integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="<?= WEB_URL ?>/assets/css/Admin.css">
-    <link rel="stylesheet" href="<?=WEB_URL?>/assets/css/global.css">
+    <link rel="stylesheet" href="<?= WEB_URL ?>/assets/css/global.css">
     <title>Admin Panel</title>
 </head>
 
@@ -25,7 +25,7 @@
                     <i class="fa-solid fa-bars text-light"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    
+
                     <ul class="nav flex-colum">
                         <img class="LOGO" src="<?= WEB_URL ?>/app/Storage/LOGO.png">
                         <li class="menu">Empleado</li>
@@ -72,3 +72,8 @@
                             <a class="nav-link" href="#">Salir</a>
                         </li>
                     </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+</body>
