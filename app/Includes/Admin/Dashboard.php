@@ -11,6 +11,7 @@
         integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="<?= WEB_URL ?>/assets/css/Admin.css">
+    <link rel="stylesheet" href="<?=WEB_URL?>/assets/css/global.css">
     <title>Admin Panel</title>
 </head>
 

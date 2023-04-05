@@ -1,12 +1,3 @@
-:root {
-    --azul: #2874A6;
-    --dorado: #B7950B;
-    --light: #dddddd;
-    --gris-oscuro: #222222;
-    --gris-claro: #333333;
-    --fuente: 'Tilt Neon', cursive;
-}
-
 * {
     font-family: var(--fuente);
 }
