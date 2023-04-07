@@ -15,8 +15,12 @@ class AccountRoleFilter {
      * @return bool
      */
     static function isUserAccount($userId): bool {
-        $user = Usuario::getById(intval($userId));
-        return ($user !== NULL && $user->getRole() === 'user');
+        $user = Usuario::getById($userId);
+        if($user != null)
+            if($user->getRol() == 'usr')
+                return true;
+        return false;
+
     }
 
     /**
@@ -26,8 +30,11 @@ class AccountRoleFilter {
      * @return bool
      */
     static function isEmpAccount($userId): bool {
-        $user = Usuario::getById(intval($userId));
-        return ($user !== NULL && $user->getRole() === 'empleado');
+        $user = Usuario::getById($userId);
+        if($user != null)
+            if($user->getRol() == 'emp')
+                return true;
+        return false;
     }
 
     /**
@@ -37,8 +44,11 @@ class AccountRoleFilter {
      * @return bool
      */
     static function isAdminAccount($userId): bool {
-        $user = Usuario::getById(intval($userId));
-        return ($user !== NULL && $user->getRole() === 'admin');
+        $user = Usuario::getById($userId);
+        if($user != null)
+            if($user->getRol() == 'adm')
+                return true;
+        return false;
     }
 
 }
