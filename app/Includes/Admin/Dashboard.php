@@ -1,3 +1,22 @@
+<?php
+// Verificar si el usuario tiene sesión iniciada
+
+use CIME\Filters\AccountRoleFilter;
+use CIME\Filters\SessionFilter;
+
+SessionFilter::existsUserSession();
+
+// Obtener el id del usuario actual
+$userId = $_SESSION['uid'];
+
+// Verificar si el usuario es administrador o empleado
+if (AccountRoleFilter::isUserAccount($userId)) {
+    // Si el usuario no es administrador o empleado, redirigirlo a la página principal
+    
+    header("Location: ". WEB_URL);
+   
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
