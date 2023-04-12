@@ -17,4 +17,14 @@ class Clasificacion extends ClasificacionDB {
     public function setNinos($isForNinos) { $this->ninos = $isForNinos; }
     public function setAdolescentes($isForAdolescentes) { $this->adolescentes = $isForAdolescentes; }
 
+    public function toArray(): array{
+        return [
+            "id" => $this->getId(),
+            "nombre" => $this->getNombre(),
+            "descripcion" => $this->getDescripcion(),
+            "ninos"=> $this->isForNinos(),
+            "adolescentes"=> $this->isForAdolescentes()
+        ];
+    }
+
 }
