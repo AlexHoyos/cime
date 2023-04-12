@@ -1,6 +1,10 @@
 <?php
 use CIME\Controllers\CRUD\Clasificaciones\GETClasificacionesMethod;
+use CIME\Controllers\CRUD\Clasificaciones\POSTClasificacionesMethod;
+use CIME\Controllers\CRUD\Clasificaciones\PUTClasificacionesMethod;
+use CIME\Controllers\CRUD\DELETEModelMethod;
 use CIME\Filters\AccountRoleFilter;
+use CIME\Models\Clasificacion;
 
 include '../ControllerHeader.php';
 include 'CRUDHeader.php';
@@ -13,18 +17,20 @@ include 'CRUDHeader.php';
  * $restriction - La restrucción de ejecución, por defecto es si el usuario existe.
  */
 
-if($_SERVER['REQUEST_METHOD'] === 'GET'){
-    $restriction = true; // Disponible para todos
-    $params = $_GET; // Guardamos parametros del GET
-    $httpMethod = new GETClasificacionesMethod();
-} else if($_SERVER['REQUEST_METHOD'] === 'POST' && $restriction){
-    $restriction = AccountRoleFilter::isAdminAccount($user->getId()); // Disponible solo para administradores
-    $httpMethod = null;
-} else if($_SERVER['REQUEST_METHOD'] === 'PUT' && $restriction){
-    $response["msg"] = $params["test"];
-} else if ($_SERVER['REQUEST_METHOD'] === "DELETE" && $restriction){
-    $response["msg"] = $params["test"];
-}
+    if($_SERVER['REQUEST_METHOD'] === 'GET'){
+        $restriction = true; // Disponible para todos
+        $params = $_GET; // Guardamos parametros del GET
+        $httpMethod = new GETClasificacionesMethod();
+    } else if($_SERVER['REQUEST_METHOD'] === 'POST' && $restriction){
+        $restriction = AccountRoleFilter::isAdminAccount($user->getId()); // Disponible solo para administradores
+        $httpMethod = new POSTClasificacionesMethod();
+    } else if($_SERVER['REQUEST_METHOD'] === 'PUT' && $restriction){
+        $restriction = AccountRoleFilter::isAdminAccount($user->getId()); // Disponible solo para administradores
+        $httpMethod = new PUTClasificacionesMethod();
+    } else if ($_SERVER['REQUEST_METHOD'] === "DELETE" && $restriction){
+        $restriction = AccountRoleFilter::isAdminAccount($user->getId()); // Disponible solo para administradores
+        $httpMethod = new DELETEModelMethod(Clasificacion::class);
+    }
 
 include 'CRUDFooter.php';
 include '../ControllerFooter.php';

@@ -33,14 +33,14 @@ class ClasificacionDB extends ADBModel {
 
     /* CRUD FUNCTIONS */
     public function create():bool {
-        $values = [$this->nombre, $this->descripcion, $this->ninos, $this->adolescentes];
+        $values = ["'{$this->nombre}'", "'{$this->descripcion}'", "'{$this->ninos}'", "'{$this->adolescentes}'"];
         return Self::_executeQuery(" INSERT INTO  " . Self::getTablename() . " (nombre, descripcion, ninos, adolescentes) VALUES (". implode(", ", $values) . ")");
     }
     public function delete():bool{
         return Self::_executeQuery(" DELETE FROM  " . Self::getTablename() . " WHERE id = " . intval($this->id));
     }
     public function update():bool{
-        return Self::_executeQuery("UPDATE ". Self::getTablename() . " SET nombre = {$this->nombre}, descripcion = {$this->descripcion}, ninos = {$this->ninos}, adolescentes = {$this->adolescentes} WHERE id = " . intval($this->id) );
+        return Self::_executeQuery("UPDATE ". Self::getTablename() . " SET nombre = '{$this->nombre}', descripcion = '{$this->descripcion}', ninos = '{$this->ninos}', adolescentes = '{$this->adolescentes}' WHERE id = " . intval($this->id) );
     }
 
     public static function getAll():DBPagination{
@@ -50,7 +50,7 @@ class ClasificacionDB extends ADBModel {
     static public function getById($id): Clasificacion|null {
         $id = intval($id);
         return Self::transformRow(
-            Self::_fetchQuery("SELECT * FROM ".Self::getTablename()." WHERE id = {$id} ")
+            Self::_fetchQuery("SELECT * FROM ".Self::getTablename()." WHERE id = {$id} ", true)
         );
     }
 

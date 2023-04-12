@@ -23,10 +23,9 @@ class GETClasificacionesMethod extends ACRUDControllerMethod{
                 $this->response["error"] = "No se encontró dicha clasificación";
             }
         } else {
+            $page = 1;
             if(isset($params["page"]))
                 $page = intval($params["page"]);
-            else 
-                $page = 1;
             
             $this->httpCode = 200;
             $this->response = Clasificacion::getAll()->page($page);

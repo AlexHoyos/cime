@@ -13,9 +13,17 @@ class POSTClasificacionesMethod extends ACRUDControllerMethod {
         if(isset($params["nombre"]) && isset($params["descripcion"]) && isset($params["ninos"]) && isset($params["adols"])){
 
             if(!empty($params["nombre"]) && !empty($params["ninos"]) && !empty($params["adols"])){
-
+                
                 $clasificacion = new Clasificacion(NULL, $params["nombre"], $params["descripcion"], $params["ninos"], $params["adols"]);
-                $clasificacion->create();
+                if($clasificacion->create()){
+
+                    $this->httpCode = 200;
+                    $this->response["msg"] = "Clasificación creada!";
+
+                } else {
+                    $this->response["error"] = "Error al crear la clasificación!";
+                }
+                
 
             } else {
                 $this->response["error"] = "Algunos parametros obligatorios estan vacios";
