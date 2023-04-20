@@ -43,8 +43,8 @@ class ClasificacionDB extends ADBModel {
         return Self::_executeQuery("UPDATE ". Self::getTablename() . " SET nombre = '{$this->nombre}', descripcion = '{$this->descripcion}', ninos = '{$this->ninos}', adolescentes = '{$this->adolescentes}' WHERE id = " . intval($this->id) );
     }
 
-    public static function getAll():DBPagination{
-        return Clasificacion::_getRows(Self::class);     
+    public static function getAll($atributes = [], $conditions = "", $orderBy = ""):DBPagination{
+        return Clasificacion::_getRows(Self::class, $atributes, $conditions, $orderBy);
     }
     
     static public function getById($id): Clasificacion|null {

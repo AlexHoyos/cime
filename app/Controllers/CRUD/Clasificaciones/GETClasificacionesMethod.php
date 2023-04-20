@@ -27,8 +27,20 @@ class GETClasificacionesMethod extends ACRUDControllerMethod{
             if(isset($params["page"]))
                 $page = intval($params["page"]);
             
+            $orderBy = "ORDER BY id DESC";
+
+            if(isset($params["orderby"])){
+                switch($params["orderby"]){
+                    case "old":
+                        $orderBy = "ORDER BY id ASC";
+                        break;
+                    default:
+                        $orderBy = "ORDER BY id DESC";
+                }
+            }
+
             $this->httpCode = 200;
-            $this->response = Clasificacion::getAll()->page($page);
+            $this->response = Clasificacion::getAll([], "", $orderBy)->page($page);
             
         }
 

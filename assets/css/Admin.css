@@ -49,3 +49,7 @@ nav#headerNav {
 
 
 }
+
+#crud {
+    display: flex;
+}
