@@ -35,10 +35,63 @@ use CIME\Models\Clasificacion;
     $availablePages = $clasificacionesPagination->totalPages();
 ?>
 
+<!-- MODAL -->
+<div class="modal modal-lg" tabindex="-1" role="dialog" id="objectModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"></h5>
+        <button type="button" onclick="hideModal()" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="idClasificacion">
+        <label for="nombre">Nombre:</label>
+        <input type="text" name="nombre" id="nombreClasificacion" placeholder="Nombre" class="form-control">
+        <label for="descripcion">Descripcion:</label>
+        <textarea name="descripcion" id="descripcionClasificacion" placeholder="Descripcion" class="form-control"></textarea>
+        <label>Se permite niños:</label><br>
+        <input type="radio" name="ninos" id="siNinos" value="s"><label for="siNinos">Sí</label>
+        <input type="radio" name="ninos" id="noNinos" value="n"><label for="noNinos">No</label>
+        <br>
+        <label for="nombre">Se permite adolescentes:</label><br>
+        <input type="radio" name="adols" id="siAdols" value="s"><label for="siAdols">Sí</label>
+        <input type="radio" name="adols" id="adultsAdols" value="adult"><label for="adultsAdols">Acompañados de un adulto</label>
+        <input type="radio" name="adols" id="noAdols" value="n"><label for="noAdols">No</label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="saveBtn">Guardar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="hideModal()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <section class="d-flex flex-column justify-content-center align-items-center ms-2 mt-2 w-100" id="crud">
     <h2 class="super-title">Clasificaciones</h2>
     <article class="row m-0 d-0 w-100">
 
+    <?php 
+        if(isset($_GET["id"])){
+
+        $clasificacion = Clasificacion::getById(intval($_GET["id"]));
+        if($clasificacion instanceof Clasificacion){
+    ?>
+        <div class="col-12 d-flex flex-column align-items-center justify-content-center py-3">
+            <div class="card">
+                <h5 class="card-header"><?=$clasificacion->getNombre()?></h5>
+                <div class="card-body">
+                    <h5 class="card-title">Descripción</h5>
+                    <p class="card-text"><?=$clasificacion->getDescripcion()?></p>
+                    <span class="badge bg-success"><?=($clasificacion->isForNinos() == 's') ? 'Niños': ''?></span>
+                    <span class="badge bg-success"><?=($clasificacion->isForAdolescentes() == 's') ? 'Adolescentes': ''?></span>
+                    <span class="badge bg-warning"><?=($clasificacion->isForAdolescentes() == 'adult') ? 'Adolescentes acompañados de un adulto': ''?></span>
+                    <span class="badge bg-danger"><?=($clasificacion->isForAdolescentes() == 'n' && $clasificacion->isForNinos() == 'n') ? 'Solo adultos': ''?></span>
+                </div>
+            </div>
+        </div>
+    <?php } } ?>
         <div class="col-6 col-md-4 ps-5">
             <form action="" method="get">
                 <div class="input-group mb-3">
@@ -50,7 +103,7 @@ use CIME\Models\Clasificacion;
             </form>
         </div>
         <div class="col-6 col-md-8 pl-5 d-flex flex-row justify-content-end">
-            <button class="btn btn-primary">+ Crear</button>
+            <button class="btn btn-primary" onclick="openAdd()">+ Crear</button>
         </div>
 
         <div class="col-12 d-flex flex-row justify-content-center">
@@ -69,11 +122,15 @@ use CIME\Models\Clasificacion;
                     foreach($clasificaciones as $clasificacion){
                     ?>
                     <tr>
-                    <th scope="row"><?=$clasificacion["id"]?></th>
-                    <td><?=$clasificacion["nombre"]?></td>
-                    <td><?=$clasificacion["ninos"]?></td>
-                    <td><?=$clasificacion["adolescentes"]?></td>
-                    <td></td>
+                        <th scope="row"><?=$clasificacion["id"]?></th>
+                        <td><?=$clasificacion["nombre"]?></td>
+                        <td><?=$clasificacion["ninos"]?></td>
+                        <td><?=$clasificacion["adolescentes"]?></td>
+                        <td>
+                            <a href="<?=$_SERVER["REQUEST_URI"]."&id=".$clasificacion["id"]?>" class="btn btn-success">Ver</a>
+                            <button class="btn btn-warning" onclick="openEdit(<?=$clasificacion['id']?>)">Editar</button>
+                            <button class="btn btn-danger" onclick="deleteObject(<?=$clasificacion['id']?>)">Eliminar</button>
+                        </td>
                     </tr>
                     <?php } ?>
                 </tbody>
@@ -108,5 +165,113 @@ use CIME\Models\Clasificacion;
     include '../app/Includes/Admin/Footer.php';
 ?>
 <script>
+    function openModal(){
+        $("#objectModal").modal('show')
+    }
 
+    function hideModal(){
+        $("#objectModal").modal('hide')
+    }
+
+    function openEdit(id){
+        $.ajax({
+            type: "GET",
+            url: '../app/Controllers/CRUD/Clasificaciones.php?id='+id,
+            data: {},
+            success: function(response)
+            {
+                console.log(response)
+                $("#idClasificacion").val(id)
+                $("#nombreClasificacion").val(response.nombre)
+                $("#descripcionClasificacion").val(response.descripcion)
+                $("#saveBtn").attr('onclick', 'edit()')
+                if(response.ninos == "s"){
+                    $("#siNinos").prop('checked', true)
+                } else {
+                    $("#noNinos").prop('checked', true)
+                }
+                
+                if(response.adolescentes == "s"){
+                    $("#siAdols").prop('checked', true)
+                } else if(response.adolescentes == "adult"){
+                    $("#adultsAdols").prop('checked', true)
+                } else {
+                    $("#noAdols").prop('checked', true)
+                }
+
+                openModal()
+            }
+       });
+    }
+
+    function openAdd(){
+        $("#idClasificacion").val("")
+        $("#nombreClasificacion").val("")
+        $("#descripcionClasificacion").val("")
+        $("#siNinos").prop('checked', true)
+        $("#siAdols").prop('checked', true)
+        $("#saveBtn").attr('onclick', 'add()')
+        openModal()
+    }
+
+    function add(){
+        var nombre = $("#nombreClasificacion").val()
+        var descripcion = $("#descripcionClasificacion").val()
+        var ninos = $("input[name='ninos']:checked").val();
+        var adols = $("input[name='adols']:checked").val();
+        $.ajax({
+            type: "POST",
+            url: '../app/Controllers/CRUD/Clasificaciones.php',
+            data: {nombre:nombre, descripcion:descripcion, ninos:ninos, adols:adols},
+            success: function(response)
+            {
+
+                alert("Clasificacion agregada!");
+                window.location.reload()
+            },
+            error: function(response){
+                console.log({nombre:nombre, descripcion:descripcion, ninos:ninos, adols:adols})
+                console.log(response)
+            }
+       });
+    }
+
+    function edit(){
+        var id = $("#idClasificacion").val()
+        var nombre = $("#nombreClasificacion").val()
+        var descripcion = $("#descripcionClasificacion").val()
+        var ninos = $("input[name='ninos']:checked").val();
+        var adols = $("input[name='adols']:checked").val();
+        $.ajax({
+            type: "PUT",
+            url: '../app/Controllers/CRUD/Clasificaciones.php',
+            data: {id:id, nombre:nombre, descripcion:descripcion, ninos:ninos, adols:adols},
+            success: function(response)
+            {
+
+                alert("Clasificacion editada!");
+                window.location.reload()
+            },
+            error: function(response){
+                console.log({id:id, nombre:nombre, descripcion:descripcion, ninos:ninos, adols:adols})
+                console.log(response)
+            }
+       });
+    }
+    function deleteObject(id){
+        $.ajax({
+            type: "DELETE",
+            url: '../app/Controllers/CRUD/Clasificaciones.php',
+            data: {id:id},
+            success: function(response)
+            {
+
+                alert("Clasificacion eliminada!");
+                window.location.reload()
+            },
+            error: function(response){
+                console.log(response)
+            }
+       });
+    }
 </script>
