@@ -127,7 +127,7 @@ use CIME\Models\Clasificacion;
                         <td><?=$clasificacion["ninos"]?></td>
                         <td><?=$clasificacion["adolescentes"]?></td>
                         <td>
-                            <a href="<?=$_SERVER["REQUEST_URI"]."&id=".$clasificacion["id"]?>" class="btn btn-success">Ver</a>
+                            <a href="?id=<?=$clasificacion["id"]?>" class="btn btn-success">Ver</a>
                             <button class="btn btn-warning" onclick="openEdit(<?=$clasificacion['id']?>)">Editar</button>
                             <button class="btn btn-danger" onclick="deleteObject(<?=$clasificacion['id']?>)">Eliminar</button>
                         </td>
@@ -200,6 +200,9 @@ use CIME\Models\Clasificacion;
                 }
 
                 openModal()
+            },
+            error: function(res){
+                console.log(res)
             }
        });
     }

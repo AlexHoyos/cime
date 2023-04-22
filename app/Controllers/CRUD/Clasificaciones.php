@@ -1,5 +1,6 @@
 <?php
 use CIME\Controllers\CRUD\Clasificaciones\GETClasificacionesMethod;
+use CIME\Controllers\CRUD\Clasificaciones\GETModalMethod;
 use CIME\Controllers\CRUD\Clasificaciones\POSTClasificacionesMethod;
 use CIME\Controllers\CRUD\Clasificaciones\PUTClasificacionesMethod;
 use CIME\Controllers\CRUD\DELETEModelMethod;
@@ -20,7 +21,7 @@ include 'CRUDHeader.php';
     if($_SERVER['REQUEST_METHOD'] === 'GET'){
         $restriction = true; // Disponible para todos
         $params = $_GET; // Guardamos parametros del GET
-        $httpMethod = new GETClasificacionesMethod();
+        $httpMethod = new GETModalMethod(Clasificacion::class);
     } else if($_SERVER['REQUEST_METHOD'] === 'POST' && $restriction){
         $restriction = AccountRoleFilter::isAdminAccount($user->getId()); // Disponible solo para administradores
         $httpMethod = new POSTClasificacionesMethod();
