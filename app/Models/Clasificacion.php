@@ -15,9 +15,9 @@ class Clasificacion extends ClasificacionDB {
 
     public function setNombre($nombre) { $this->nombre = $nombre; }
     public function setDescripcion($descripcion) { $this->descripcion = $descripcion; }
-    public function setNinos($isForNinos) { $this->ninos = boolval($isForNinos); }
-    public function setAdolescentes($isForAdolescentes) { $this->adolescentes = boolval($isForAdolescentes); }
-    public function setAdolWithAdult($isForAdolAdult) { $this->adol_adult = boolval($isForAdolAdult); }
+    public function setNinos($isForNinos) { $this->ninos = intval(boolval($isForNinos)); }
+    public function setAdolescentes($isForAdolescentes) { $this->adolescentes = intval(boolval($isForAdolescentes)); }
+    public function setAdolWithAdult($isForAdolAdult) { $this->adol_adult = intval(boolval($isForAdolAdult)); }
 
     public function toArray(): array{
         return [

@@ -4,7 +4,7 @@ namespace CIME\Controllers\CRUD;
 
 use CIME\Controllers\CRUD\ACRUDControllerMethod;
 
-class GETModalMethod extends ACRUDControllerMethod{
+class GETModelMethod extends ACRUDControllerMethod{
 
     public function __construct(
         private $modelClass

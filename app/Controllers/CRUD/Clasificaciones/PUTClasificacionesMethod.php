@@ -21,8 +21,9 @@ class PUTClasificacionesMethod extends ACRUDControllerMethod {
                         
                         $clasificacion->setNombre($params["nombre"]);
                         $clasificacion->setDescripcion($params["descripcion"]);
-                        $clasificacion->setNinos($params["ninos"]);
-                        $clasificacion->setAdolescentes($params["adols"]);
+                        $clasificacion->setNinos($params["ninos"] == 's');
+                        $clasificacion->setAdolescentes($params["adols"] == 's');
+                        $clasificacion->setAdolWithAdult($params["adols"] == 'adult');
 
                         if($clasificacion->update()){
                             $this->httpCode = 200;

@@ -1,38 +1,23 @@
 <?php
 
+use CIME\Filters\CRUDPageFilter;
 use CIME\Models\Clasificacion;
 
     include '../app/main.php';
     include '../app/Includes/Admin/Dashboard.php';
-    $page = 1;
-    if(isset($_GET["page"]))
-        $page = intval($_GET["page"]);
 
-    if($page == 0)
-        $page = 1;
+    $page = CRUDPageFilter::getPageNumber();
+    $orderBy = CRUDPageFilter::getOrderBy();
+    $condition = CRUDPageFilter::getCondition("nombre");
 
     $nextPageAdd = "";
-
-    $orderBy = "ORDER BY id DESC";
-
-    if(isset($_GET["orderby"])){
-        switch($params["orderby"]){
-            case "old":
-                $orderBy = "ORDER BY id ASC";
-                break;
-            default:
-                $orderBy = "ORDER BY id DESC";
-        }
-    }
-
-    $condition = "";
-    if(isset($_GET["search"])){
-        $condition = "nombre LIKE \"%". $_GET["search"] ."%\"";
+    if(empty($condition) == false)
         $nextPageAdd .= '&search='.$_GET["search"];
-    }
+    
     $clasificacionesPagination = Clasificacion::getAll([], $condition, $orderBy);
     $clasificaciones = $clasificacionesPagination->page($page);
     $availablePages = $clasificacionesPagination->totalPages();
+
 ?>
 
 <!-- MODAL -->
@@ -84,10 +69,10 @@ use CIME\Models\Clasificacion;
                 <div class="card-body">
                     <h5 class="card-title">Descripción</h5>
                     <p class="card-text"><?=$clasificacion->getDescripcion()?></p>
-                    <span class="badge bg-success"><?=($clasificacion->isForNinos() == 's') ? 'Niños': ''?></span>
-                    <span class="badge bg-success"><?=($clasificacion->isForAdolescentes() == 's') ? 'Adolescentes': ''?></span>
-                    <span class="badge bg-warning"><?=($clasificacion->isForAdolescentes() == 'adult') ? 'Adolescentes acompañados de un adulto': ''?></span>
-                    <span class="badge bg-danger"><?=($clasificacion->isForAdolescentes() == 'n' && $clasificacion->isForNinos() == 'n') ? 'Solo adultos': ''?></span>
+                    <span class="badge bg-success"><?=($clasificacion->isForNinos()) ? 'Niños': ''?></span>
+                    <span class="badge bg-success"><?=($clasificacion->isForAdolescentes()) ? 'Adolescentes': ''?></span>
+                    <span class="badge bg-warning"><?=($clasificacion->isForAdolAdult()) ? 'Adolescentes acompañados de un adulto': ''?></span>
+                    <span class="badge bg-danger"><?=($clasificacion->isForAdolescentes() == false && $clasificacion->isForNinos() == false && $clasificacion->isForAdolAdult() == false) ? 'Solo adultos': ''?></span>
                 </div>
             </div>
         </div>
@@ -120,12 +105,17 @@ use CIME\Models\Clasificacion;
                 <tbody>
                     <?php
                     foreach($clasificaciones as $clasificacion){
+                        $ninos = "no";
+                        $adol = "no";
+                        if($clasificacion["ninos"]){ $ninos = "si"; }
+                        if($clasificacion["adolescentes"]){ $adol = "si"; }
+                        if($clasificacion["adol_adult"]){ $adol = "Con Adulto"; }
                     ?>
                     <tr>
                         <th scope="row"><?=$clasificacion["id"]?></th>
                         <td><?=$clasificacion["nombre"]?></td>
-                        <td><?=$clasificacion["ninos"]?></td>
-                        <td><?=$clasificacion["adolescentes"]?></td>
+                        <td><?=$ninos?></td>
+                        <td><?=$adol?></td>
                         <td>
                             <a href="?id=<?=$clasificacion["id"]?>" class="btn btn-success">Ver</a>
                             <button class="btn btn-warning" onclick="openEdit(<?=$clasificacion['id']?>)">Editar</button>
@@ -185,15 +175,15 @@ use CIME\Models\Clasificacion;
                 $("#nombreClasificacion").val(response.nombre)
                 $("#descripcionClasificacion").val(response.descripcion)
                 $("#saveBtn").attr('onclick', 'edit()')
-                if(response.ninos == "s"){
+                if(response.ninos){
                     $("#siNinos").prop('checked', true)
                 } else {
                     $("#noNinos").prop('checked', true)
                 }
                 
-                if(response.adolescentes == "s"){
+                if(response.adolescentes){
                     $("#siAdols").prop('checked', true)
-                } else if(response.adolescentes == "adult"){
+                } else if(response.adol_adult){
                     $("#adultsAdols").prop('checked', true)
                 } else {
                     $("#noAdols").prop('checked', true)
