@@ -10,7 +10,7 @@ class SalaDB extends ADBModel {
 
     public function __construct(
         protected $id,
-        protected $mapa
+        protected $nombre
     ){}
 
     protected static function getTablename(): String {
@@ -19,7 +19,7 @@ class SalaDB extends ADBModel {
 
     public static function transformRow($row): Sala|null {
             if($row != null)
-                return new Sala($row->id, $row->mapa);
+                return new Sala($row->id, $row->nombre);
             
             return null;
     }
@@ -30,13 +30,13 @@ class SalaDB extends ADBModel {
 
     /* CRUD FUNCTIONS */
     public function create():bool {
-        return Self::_executeQuery(" INSERT INTO  " . Self::getTablename() . " (mapa) VALUES ({$this->mapa})");
+        return Self::_executeQuery(" INSERT INTO  " . Self::getTablename() . " (nombre) VALUES ('{$this->nombre}')");
     }
     public function delete():bool{
         return Self::_executeQuery(" DELETE FROM  " . Self::getTablename() . " WHERE id = " . intval($this->id));
     }
     public function update():bool{
-        return Self::_executeQuery("UPDATE ". Self::getTablename() . " SET mapa = {$this->mapa}, WHERE id = " . intval($this->id) );
+        return Self::_executeQuery("UPDATE ". Self::getTablename() . " SET nombre = '{$this->nombre}', WHERE id = " . intval($this->id) );
     }
 
     public static function getAll():DBPagination{

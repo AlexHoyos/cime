@@ -13,7 +13,8 @@ class ClasificacionDB extends ADBModel {
         protected $nombre,
         protected $descripcion,
         protected $ninos,
-        protected $adolescentes
+        protected $adolescentes,
+        protected $adol_adult
     ){}
 
     protected static function getTablename(): String {
@@ -22,7 +23,7 @@ class ClasificacionDB extends ADBModel {
 
     public static function transformRow($row): Clasificacion|null {
             if($row != null)
-                return new Clasificacion($row->id, $row->nombre, $row->descripcion, $row->ninos, $row->adolescentes);
+                return new Clasificacion($row->id, $row->nombre, $row->descripcion, $row->ninos, $row->adolescentes, $row->adol_adult);
             
             return null;
     }
@@ -33,14 +34,14 @@ class ClasificacionDB extends ADBModel {
 
     /* CRUD FUNCTIONS */
     public function create():bool {
-        $values = ["'{$this->nombre}'", "'{$this->descripcion}'", "'{$this->ninos}'", "'{$this->adolescentes}'"];
-        return Self::_executeQuery(" INSERT INTO  " . Self::getTablename() . " (nombre, descripcion, ninos, adolescentes) VALUES (". implode(", ", $values) . ")");
+        $values = ["'{$this->nombre}'", "'{$this->descripcion}'", boolval($this->ninos), boolval($this->adolescentes), boolval($this->adol_adult)];
+        return Self::_executeQuery(" INSERT INTO  " . Self::getTablename() . " (nombre, descripcion, ninos, adolescentes, adol_adult) VALUES (". implode(", ", $values) . ")");
     }
     public function delete():bool{
         return Self::_executeQuery(" DELETE FROM  " . Self::getTablename() . " WHERE id = " . intval($this->id));
     }
     public function update():bool{
-        return Self::_executeQuery("UPDATE ". Self::getTablename() . " SET nombre = '{$this->nombre}', descripcion = '{$this->descripcion}', ninos = '{$this->ninos}', adolescentes = '{$this->adolescentes}' WHERE id = " . intval($this->id) );
+        return Self::_executeQuery("UPDATE ". Self::getTablename() . " SET nombre = '{$this->nombre}', descripcion = '{$this->descripcion}', ninos = {$this->ninos}, adolescentes = {$this->adolescentes}, adol_adult = {$this->adol_adult} WHERE id = " . intval($this->id) );
     }
 
     public static function getAll($atributes = [], $conditions = "", $orderBy = ""):DBPagination{
