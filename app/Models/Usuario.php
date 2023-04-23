@@ -14,7 +14,7 @@ class Usuario extends UsuarioDB{
     public function getNacimiento() { return $this->nacimiento; }
     public function getPassword() { return $this->password; }
     public function getRegDate() { return $this->reg_date; }
-    public function getRol() { return $this->id_rol; }
+    public function getRol() { return Rol::getById($this->id_rol); }
     public function getSecureCode() { return $this->secure_code; }
 
     public function setNombre($nombre) { $this->nombre = $nombre; }

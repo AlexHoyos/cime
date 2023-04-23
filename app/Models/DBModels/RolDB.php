@@ -46,7 +46,7 @@ class RolDB extends ADBModel {
     static public function getById($id): Rol|null {
         $id = intval($id);
         return Self::transformRow(
-            Self::_fetchQuery("SELECT * FROM ".Self::getTablename()." WHERE id = {$id} ")
+            Self::_fetchQuery("SELECT * FROM ".Self::getTablename()." WHERE id = {$id} ", true)
         );
     }
 }

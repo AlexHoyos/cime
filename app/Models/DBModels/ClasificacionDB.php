@@ -34,7 +34,7 @@ class ClasificacionDB extends ADBModel {
 
     /* CRUD FUNCTIONS */
     public function create():bool {
-        $values = ["'{$this->nombre}'", "'{$this->descripcion}'", boolval($this->ninos), boolval($this->adolescentes), boolval($this->adol_adult)];
+        $values = ["'{$this->nombre}'", "'{$this->descripcion}'", intval(boolval($this->ninos)), intval(boolval($this->adolescentes)), intval(boolval($this->adol_adult))];
         return Self::_executeQuery(" INSERT INTO  " . Self::getTablename() . " (nombre, descripcion, ninos, adolescentes, adol_adult) VALUES (". implode(", ", $values) . ")");
     }
     public function delete():bool{

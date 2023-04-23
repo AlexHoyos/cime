@@ -13,8 +13,13 @@ class POSTClasificacionesMethod extends ACRUDControllerMethod {
         if(isset($params["nombre"]) && isset($params["descripcion"]) && isset($params["ninos"]) && isset($params["adols"])){
 
             if(!empty($params["nombre"]) && !empty($params["ninos"]) && !empty($params["adols"])){
-                
-                $clasificacion = new Clasificacion(NULL, $params["nombre"], $params["descripcion"], $params["ninos"], $params["adols"]);
+                $adol_adult = false;
+                if($params["adols"] == "adult"){
+                    $adol_adult = true;
+                    $params["adols"] = 's';
+                }
+                    
+                $clasificacion = new Clasificacion(NULL, $params["nombre"], $params["descripcion"], $params["ninos"] == 's', $params["adols"] == 's', $adol_adult);
                 if($clasificacion->create()){
 
                     $this->httpCode = 200;
