@@ -2,9 +2,9 @@
 
 namespace CIME\Models;
 
-use CIME\Models\DBModels\SalaDB;
+use CIME\Models\DBModels\FormatoDB;
 
-class Sala extends SalaDB {
+class Formato extends FormatoDB {
 
     public function getId(){ return $this->id; }
     public function getNombre(){ return $this->nombre; }

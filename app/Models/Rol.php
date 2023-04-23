@@ -2,9 +2,9 @@
 
 namespace CIME\Models;
 
-use CIME\Models\DBModels\SalaDB;
+use CIME\Models\DBModels\RolDB;
 
-class Sala extends SalaDB {
+class Rol extends RolDB {
 
     public function getId(){ return $this->id; }
     public function getNombre(){ return $this->nombre; }

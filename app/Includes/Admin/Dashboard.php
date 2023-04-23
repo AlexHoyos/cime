@@ -34,7 +34,7 @@ if (AccountRoleFilter::isUserAccount($userId)) {
     <title>Admin Panel</title>
 </head>
 
-<body>
+<body class="d-flex flex-row">
     <header>
         <nav class="navbar navbar-expand-lg p-0" id="headerNav">
             <div class="container-fluid">
@@ -58,12 +58,15 @@ if (AccountRoleFilter::isUserAccount($userId)) {
                         <li class="nav-item">
                             <a class="nav-link" href="#">Reportes ventas</a>
                         </li>
+                        <?php
+                            if( AccountRoleFilter::isAdminAccount($userId) ) {
+                        ?>
                         <li class="menu">Admin</li>
                         <li class="nav-item">
                             <a class="nav-link" href="<?= WEB_URL . '/Pelicula.php' ?>">Peliculas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= WEB_URL . '/Clasificacion.php' ?>">Clasificaciones</a>
+                            <a class="nav-link" href="<?= WEB_URL . '/admin/Clasificaciones.php' ?>">Clasificaciones</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="<?= WEB_URL . '/Sala.php' ?>">Salas</a>
@@ -87,6 +90,8 @@ if (AccountRoleFilter::isUserAccount($userId)) {
                         <li class="nav-item">
                             <a class="nav-link" href="#">Estadisticas</a>
                         </li>
+                        <?php } ?>
+                        <li class="menu">Opciones</li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Salir</a>
                         </li>

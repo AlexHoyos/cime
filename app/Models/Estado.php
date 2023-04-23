@@ -2,9 +2,9 @@
 
 namespace CIME\Models;
 
-use CIME\Models\DBModels\SalaDB;
+use CIME\Models\DBModels\EstadoDB;
 
-class Sala extends SalaDB {
+class Estado extends EstadoDB {
 
     public function getId(){ return $this->id; }
     public function getNombre(){ return $this->nombre; }

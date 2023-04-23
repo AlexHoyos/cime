@@ -58,7 +58,7 @@ nav#headerNav
     padding: 20px;
 }
 
-#pageTitle h1 {
+#pageTitle h1, .super-title {
     font-size: 48px;
     border-bottom: 4px solid var(--azul);
     width: fit-content;
