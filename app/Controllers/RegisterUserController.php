@@ -75,7 +75,7 @@ if( isset($_POST['nombre']) && isset($_POST['apellido']) && isset($_POST['correo
                     $password = password_hash($_POST['contra'], PASSWORD_BCRYPT);
 
                     // CREAMOS AL USUARIO
-                    $nuevoUsuario = new Usuario(NULL, $_POST['nombre'], $_POST['apellido'], $_POST['correo'], $_POST['telefono'], $nacimientoStr, $password, NULL, 'usr', NULL);
+                    $nuevoUsuario = new Usuario(NULL, $_POST['nombre'], $_POST['apellido'], $_POST['correo'], $_POST['telefono'], $nacimientoStr, $password, NULL, 1, NULL);
                     if($nuevoUsuario->create()){
                         $_SESSION["captcha_code"] = "";
                         $httpCode = 201;

@@ -4,9 +4,9 @@ namespace CIME\Models\DBModels;
 
 use CIME\Database\ADBModel;
 use CIME\Database\DBPagination;
-use CIME\Models\Sala;
+use CIME\Models\Rol;
 
-class SalaDB extends ADBModel {
+class RolDB extends ADBModel {
 
     public function __construct(
         protected $id,
@@ -14,14 +14,14 @@ class SalaDB extends ADBModel {
     ){}
 
     protected static function getTablename(): String {
-        return "salas";
+        return "roles";
     }
 
-    public static function transformRow($row): Sala|null {
-            if($row != null)
-                return new Sala($row->id, $row->nombre);
-            
-            return null;
+    public static function transformRow($row): Rol|null {
+        if($row != null)
+            return new Rol($row->id, $row->nombre);
+        
+        return null;
     }
 
     public static function transformRows($rows): Array {
@@ -40,16 +40,13 @@ class SalaDB extends ADBModel {
     }
 
     public static function getAll():DBPagination{
-        return Sala::_getRows(Self::class);     
+        return RolDB::_getRows(Self::class);     
     }
-    
-    static public function getById($id): Sala|null {
+
+    static public function getById($id): Rol|null {
         $id = intval($id);
         return Self::transformRow(
-            Self::_fetchQuery("SELECT * FROM ".Self::getTablename()." WHERE id = {$id} ")
+            Self::_fetchQuery("SELECT * FROM ".Self::getTablename()." WHERE id = {$id} ", true)
         );
     }
-
-    
-
 }

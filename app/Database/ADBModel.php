@@ -62,6 +62,7 @@ abstract class ADBModel {
             return $stmt->execute();
 
         } catch(\PDOException $e){
+            var_dump($e);
             return false;
         }
     }

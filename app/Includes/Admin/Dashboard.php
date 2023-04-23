@@ -1,3 +1,22 @@
+<?php
+// Verificar si el usuario tiene sesión iniciada
+
+use CIME\Filters\AccountRoleFilter;
+use CIME\Filters\SessionFilter;
+
+SessionFilter::existsUserSession();
+
+// Obtener el id del usuario actual
+$userId = $_SESSION['uid'];
+
+// Verificar si el usuario es administrador o empleado
+if (AccountRoleFilter::isUserAccount($userId)) {
+    // Si el usuario no es administrador o empleado, redirigirlo a la página principal
+    
+    header("Location: ". WEB_URL);
+   
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,7 +34,7 @@
     <title>Admin Panel</title>
 </head>
 
-<body>
+<body class="d-flex flex-row">
     <header>
         <nav class="navbar navbar-expand-lg p-0" id="headerNav">
             <div class="container-fluid">
@@ -39,12 +58,15 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#">Reportes ventas</a>
                         </li>
+                        <?php
+                            if( AccountRoleFilter::isAdminAccount($userId) ) {
+                        ?>
                         <li class="menu">Admin</li>
                         <li class="nav-item">
                             <a class="nav-link" href="<?= WEB_URL . '/Pelicula.php' ?>">Peliculas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= WEB_URL . '/Clasificacion.php' ?>">Clasificaciones</a>
+                            <a class="nav-link" href="<?= WEB_URL . '/admin/Clasificaciones.php' ?>">Clasificaciones</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="<?= WEB_URL . '/Sala.php' ?>">Salas</a>
@@ -68,6 +90,8 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#">Estadisticas</a>
                         </li>
+                        <?php } ?>
+                        <li class="menu">Opciones</li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Salir</a>
                         </li>
