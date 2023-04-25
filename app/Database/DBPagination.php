@@ -2,6 +2,8 @@
 
 namespace CIME\Database;
 
+use PDOException;
+
 class DBPagination {
 
     private \PDOStatement $PDOStatement;
@@ -27,6 +29,21 @@ class DBPagination {
 
     public function setRowsPerPage(int $number):void{
         $this->rowsPerPage = $number;
+    }
+
+    public function showAll(): array {
+        try {
+
+            $newQuery = str_replace("LIMIT :offset, :limit", "", $this->query);
+            $this->PDOStatement = $this->dbConn->prepare($newQuery);
+            $this->PDOStatement->execute();
+            
+            $rows = $this->PDOStatement->fetchAll(\PDO::FETCH_ASSOC);
+            return $rows;
+
+        } catch(PDOException $e){
+            return [];
+        }
     }
 
     public function page($number): Array{
