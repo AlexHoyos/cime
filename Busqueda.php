@@ -1,4 +1,5 @@
 <?php
+
 include './app/main.php';
 include './app/Includes/header.php';
 ?>
@@ -9,15 +10,16 @@ include './app/Includes/header.php';
         <h2>Resultados para "FIME"</h2>
     </div>
     <article class="row col-12 px-4">
-        <div class="poster">
+        <div class="poster col-2">
+            <img src="<?= WEB_URL ?>/app/Storage/fimeño.jpg">
         </div>
-        <div class="info-pelicula1">
+        <div class="info-pelicula1 col-2 m-3">
             <h3 id="nompeli">Soy Fimeño</h3>
             <h5 id="clasificacionpeli">A+</h5>
             <h5 id="duracionpeli">90 min</h5>
         </div>
         <div class="descripcion-pelicula1">
-            <p class="col-12 col-md-6 col-lg-8 text-justify">
+            <p class="col-3 px-4 col-md-3 col-lg-3 m-1text-justify" id="descripcion-pelicula1">
                 Soy Fimeño trata de la vida del alumno Luis "Osito" Gutiérrez, un joven de 6to semestre con 7 materias
                 en 5ta,
                 Luis se quiere rendir para cambiarse a FOD pero un día mientras estaba perdido en el edificio 7,
@@ -42,5 +44,7 @@ include './app/Includes/header.php';
     </article>
 </section>
 <?php
-    include './app/Includes/footer.php';
+
+include './app/Includes/footer.php';
+
 ?>
