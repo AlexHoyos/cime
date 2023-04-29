@@ -14,6 +14,10 @@ include './app/Includes/header.php';
         <h2>¿Que te parecio la pelicula Soy Fimeño?</h2>
         <div class="login-icon">
             <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
         </div>
         <p class="text-danger" id="error"></p>
         <p class="col-4">Escribe una pequeña reseña sobre tu experencia y opinion sobre la pelicula,
