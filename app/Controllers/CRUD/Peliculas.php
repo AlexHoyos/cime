@@ -1,7 +1,9 @@
 <?php
 
 use CIME\Controllers\CRUD\DELETEModelMethod;
+use CIME\Controllers\CRUD\GETModelMethod;
 use CIME\Controllers\CRUD\Peliculas\POSTPeliculasMethod;
+use CIME\Controllers\CRUD\Peliculas\PUTPeliculasMethod;
 use CIME\Filters\AccountRoleFilter;
 use CIME\Models\Pelicula;
 
@@ -19,8 +21,8 @@ include 'CRUDHeader.php';
     if($_SERVER['REQUEST_METHOD'] === 'GET'){
         $restriction = true; // Disponible para todos
         $params = $_GET; // Guardamos parametros del GET
-        $httpMethod = NULL;
-    } else if($_SERVER['REQUEST_METHOD'] === 'POST' && $restriction){
+        $httpMethod = new GETModelMethod(Pelicula::class);
+    } else if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST["isPUT"]) && $restriction){
         $restriction = AccountRoleFilter::isAdminAccount($user->getId()); // Disponible solo para administradores
         $params = $_POST;
         if(isset($_FILES["poster"]))
@@ -28,9 +30,14 @@ include 'CRUDHeader.php';
         if(isset($_FILES["wallpaper"]))
             $params["wallpaper"] = $_FILES["wallpaper"];
         $httpMethod = new POSTPeliculasMethod();
-    } else if($_SERVER['REQUEST_METHOD'] === 'PUT' && $restriction){
+    } else if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["isPUT"]) && $restriction){
         $restriction = AccountRoleFilter::isAdminAccount($user->getId()); // Disponible solo para administradores
-        $httpMethod = NULL;
+        $params = $_POST;
+        if(isset($_FILES["poster"]))
+            $params["poster"] = $_FILES["poster"];
+        if(isset($_FILES["wallpaper"]))
+            $params["wallpaper"] = $_FILES["wallpaper"];
+        $httpMethod = new PUTPeliculasMethod();
     } else if ($_SERVER['REQUEST_METHOD'] === "DELETE" && $restriction){
         $restriction = AccountRoleFilter::isAdminAccount($user->getId()); // Disponible solo para administradores
         $httpMethod = new DELETEModelMethod(Pelicula::class);

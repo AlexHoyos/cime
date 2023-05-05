@@ -27,4 +27,17 @@ class Pelicula extends PeliculaDB {
     public function setDuracion($duracion){ $this->duracion = intval($duracion); }
     public function setClasificacion($clasificacion){ $this->id_clasificacion = intval($clasificacion); }
 
+    public function toArray(): array{
+        return [
+            "id" => $this->getId(),
+            "titulo" => $this->getTitulo(),
+            "anio" => $this->getAnio(),
+            "sinopsis" => $this->getSinopsis(),
+            "portada"=> $this->getPortada(),
+            "wallpaper"=> $this->getWallpaper(),
+            "duracion"=> $this->getDuracion(),
+            "id_clasificacion" => $this->getClasificacion()
+        ];
+    }
+
 }

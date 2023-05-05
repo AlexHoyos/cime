@@ -94,7 +94,7 @@ use CIME\Models\Pelicula;
                     </div>
                     <div class="col-12 d-flex flex-row justify-content-center">
                         <a href="#" class="btn btn-outline-secondary">Ir a página</a>
-                        <button class="btn btn-outline-secondary mx-2">Editar</button>
+                        <button class="btn btn-outline-secondary mx-2" onclick="openEdit(<?=$peli->getId()?>)">Editar</button>
                     </div>
                 </div>
             </div>
@@ -189,29 +189,20 @@ use CIME\Models\Pelicula;
     function openEdit(id){
         $.ajax({
             type: "GET",
-            url: '../app/Controllers/CRUD/Clasificaciones.php?id='+id,
+            url: '../app/Controllers/CRUD/Peliculas.php?id='+id,
             data: {},
             success: function(response)
             {
                 console.log(response)
-                $("#idClasificacion").val(id)
-                $("#nombreClasificacion").val(response.nombre)
-                $("#descripcionClasificacion").val(response.descripcion)
+                $("#idPelicula").val(response.id)
+                $("#tituloPelicula").val(response.titulo)
+                $("#anioPelicula").val(response.anio)
+                $("#sinopsisPelicula").val(response.sinopsis)
+                $("#duracionPelicula").val(response.duracion)
+                $("#clasificacionPelicula").val(response.id_clasificacion)
+                $("#examplePoster").css("background-image", "url(../app/Storage/peliculas/"+response.portada+")")
+                $("#exampleWallpaper").css("background-image", "url(../app/Storage/peliculas/"+response.wallpaper+")")
                 $("#saveBtn").attr('onclick', 'edit()')
-                if(response.ninos){
-                    $("#siNinos").prop('checked', true)
-                } else {
-                    $("#noNinos").prop('checked', true)
-                }
-                
-                if(response.adolescentes){
-                    $("#siAdols").prop('checked', true)
-                } else if(response.adol_adult){
-                    $("#adultsAdols").prop('checked', true)
-                } else {
-                    $("#noAdols").prop('checked', true)
-                }
-
                 openModal()
             },
             error: function(res){
@@ -227,7 +218,7 @@ use CIME\Models\Pelicula;
         $("#sinopsisPelicula").val("")
         $("#duracionPelicula").val("")
         $("#clasificacionPelicula").val(0)
-        $("#saveBtn").attr('onclick', 'add()')
+        $("#saveBtn").attr('onclick', 'edit()')
         openModal()
     }
 
@@ -251,30 +242,8 @@ use CIME\Models\Pelicula;
     }
 
     function add(){
-        var titulo = $("#tituloPelicula").val()
-        var anio = $("#anioPelicula").val()
-        var sinopsis = $("#sinopsisPelicula").val()
-        var duracion = $("#duracionPelicula").val()
-        var clasificacion = $("#clasificacionPelicula").val()
-        var poster = null
-        var wallpaper = null
-        var data = new FormData();
-
-        if(document.getElementById('posterPelicula').files.length > 0)
-            poster = document.getElementById('posterPelicula').files[0]
-        
-        if(document.getElementById('wallpaperPelicula').files.length > 0)
-            wallpaper = document.getElementById('wallpaperPelicula').files[0]
-        
-        data.append('titulo', titulo)
-        data.append('anio', anio)
-        data.append('sinopsis', sinopsis)
-        data.append('duracion', duracion)
-        data.append('clasificacion', clasificacion)
-        if(poster != null)
-            data.append('poster', poster)
-        if(wallpaper != null)
-            data.append('wallpaper', wallpaper)
+       
+        var data = getFormData()
 
         $.ajax({
             type: "POST",
@@ -284,7 +253,6 @@ use CIME\Models\Pelicula;
             contentType: false,   // tell jQuery not to set contentType
             success: function(response)
             {
-
                 alert("Pelicula agregada!");
                 window.location.reload()
             },
@@ -296,24 +264,23 @@ use CIME\Models\Pelicula;
     }
 
     function edit(){
-        var id = $("#idClasificacion").val()
-        var nombre = $("#nombreClasificacion").val()
-        var descripcion = $("#descripcionClasificacion").val()
-        var ninos = $("input[name='ninos']:checked").val();
-        var adols = $("input[name='adols']:checked").val();
+        var data = getFormData()
+        data.append('isPUT', true)
         $.ajax({
-            type: "PUT",
-            url: '../app/Controllers/CRUD/Clasificaciones.php',
-            data: {id:id, nombre:nombre, descripcion:descripcion, ninos:ninos, adols:adols},
+            type: "POST",
+            url: '../app/Controllers/CRUD/Peliculas.php',
+            data: data,
+            processData: false,  // tell jQuery not to process the data
+            contentType: false,   // tell jQuery not to set contentType
             success: function(response)
             {
-
-                alert("Clasificacion editada!");
+                alert("Pelicula actualizada!");
                 window.location.reload()
             },
             error: function(response){
-                console.log({id:id, nombre:nombre, descripcion:descripcion, ninos:ninos, adols:adols})
+                console.log(data)
                 console.log(response)
+                alert(response.responseJSON.error)
             }
        });
     }
@@ -333,4 +300,36 @@ use CIME\Models\Pelicula;
             }
        });
     }
+
+    function getFormData(){
+        var id = $("#idPelicula").val()
+        var titulo = $("#tituloPelicula").val()
+        var anio = $("#anioPelicula").val()
+        var sinopsis = $("#sinopsisPelicula").val()
+        var duracion = $("#duracionPelicula").val()
+        var clasificacion = $("#clasificacionPelicula").val()
+        var poster = null
+        var wallpaper = null
+        var data = new FormData();
+
+        if(document.getElementById('posterPelicula').files.length > 0)
+            poster = document.getElementById('posterPelicula').files[0]
+        
+        if(document.getElementById('wallpaperPelicula').files.length > 0)
+            wallpaper = document.getElementById('wallpaperPelicula').files[0]
+        
+        data.append('id', id)
+        data.append('titulo', titulo)
+        data.append('anio', anio)
+        data.append('sinopsis', sinopsis)
+        data.append('duracion', duracion)
+        data.append('clasificacion', clasificacion)
+        if(poster != null)
+            data.append('poster', poster)
+        if(wallpaper != null)
+            data.append('wallpaper', wallpaper)
+
+        return data
+    }
+
 </script>
