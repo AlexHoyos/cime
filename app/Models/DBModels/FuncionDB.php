@@ -22,7 +22,7 @@ class FuncionDB extends ADBModel {
         protected $id_pelicula
     ){}
 
-    protected static function getTablename(): String {
+    public static function getTablename(): String {
         return "funciones";
     }
 

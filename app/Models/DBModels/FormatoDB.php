@@ -13,7 +13,7 @@ class FormatoDB extends ADBModel {
         protected $nombre
     ){}
 
-    protected static function getTablename(): String {
+    public static function getTablename(): String {
         return "formatos";
     }
 

@@ -16,7 +16,7 @@ class AsientoDB extends ADBModel {
         protected $id_sala
     ){}
 
-    protected static function getTablename(): String {
+    public static function getTablename(): String {
         return "asientos";
     }
 

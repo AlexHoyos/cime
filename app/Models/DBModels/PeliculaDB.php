@@ -19,7 +19,7 @@ class PeliculaDB extends ADBModel {
         protected $id_clasificacion
     ){}
 
-    protected static function getTablename(): String {
+    public static function getTablename(): String {
         return "peliculas";
     }
 
