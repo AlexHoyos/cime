@@ -63,7 +63,7 @@ if (AccountRoleFilter::isUserAccount($userId)) {
                         ?>
                         <li class="menu">Admin</li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= WEB_URL . '/Pelicula.php' ?>">Peliculas</a>
+                            <a class="nav-link" href="<?= WEB_URL . '/admin/Peliculas.php' ?>">Peliculas</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="<?= WEB_URL . '/admin/Clasificaciones.php' ?>">Clasificaciones</a>
