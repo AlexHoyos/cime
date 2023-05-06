@@ -1,12 +1,8 @@
 <?php
-
 use CIME\Controllers\CRUD\DELETEModelMethod;
 use CIME\Controllers\CRUD\GETModelMethod;
-use CIME\Controllers\CRUD\Salas\GETMapaSalaInputMethod;
-use CIME\Controllers\CRUD\Salas\POSTSalaMethod;
-use CIME\Controllers\CRUD\Salas\PUTSalaMethod;
 use CIME\Filters\AccountRoleFilter;
-use CIME\Models\Sala;
+use CIME\Models\Funcion;
 
 include '../ControllerHeader.php';
 include 'CRUDHeader.php';
@@ -18,23 +14,20 @@ include 'CRUDHeader.php';
  * $params - Contiene un arreglo de los parametros recibidos en cabecera HTTP excepto del metodo GET
  * $restriction - La restrucción de ejecución, por defecto es si el usuario existe.
  */
+
     if($_SERVER['REQUEST_METHOD'] === 'GET'){
         $restriction = true; // Disponible para todos
         $params = $_GET; // Guardamos parametros del GET
-        if(isset($_GET["mapInput"]))
-            $httpMethod = new GETMapaSalaInputMethod();
-        else
-            $httpMethod = new GETModelMethod(Sala::class);
+        $httpMethod = new GETModelMethod(Funcion::class);
     } else if($_SERVER['REQUEST_METHOD'] === 'POST' && $restriction){
         $restriction = AccountRoleFilter::isAdminAccount($user->getId()); // Disponible solo para administradores
-        $params = $_POST;
-        $httpMethod = new POSTSalaMethod();
+        $httpMethod = null;
     } else if($_SERVER['REQUEST_METHOD'] === 'PUT' && $restriction){
         $restriction = AccountRoleFilter::isAdminAccount($user->getId()); // Disponible solo para administradores
-        $httpMethod = new PUTSalaMethod();
+        $httpMethod = null;
     } else if ($_SERVER['REQUEST_METHOD'] === "DELETE" && $restriction){
         $restriction = AccountRoleFilter::isAdminAccount($user->getId()); // Disponible solo para administradores
-        $httpMethod = new DELETEModelMethod(Sala::class);
+        $httpMethod = new DELETEModelMethod(Clasificacion::class);
     }
 
 include 'CRUDFooter.php';
