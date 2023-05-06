@@ -28,7 +28,7 @@ class FuncionDB extends ADBModel {
 
     public static function transformRow($row): Funcion|null {
             if($row != null)
-                return new Funcion($row->id, $row->precio_adulto, $row->precio_adol, $row->precio_nino, $row->id_formato, $row->id_idioma, $row->subtitulos, $row->fecha, $row->hora, $row->id_sala, $row->id_pelicula);
+                return new Funcion($row->id, $row->precio_adulto, $row->precio_adol, $row->precio_nino, $row->id_formato, $row->id_idioma, $row->id_subtitulos, $row->fecha, $row->hora, $row->id_sala, $row->id_pelicula);
             
             return null;
     }
@@ -39,7 +39,7 @@ class FuncionDB extends ADBModel {
 
     /* CRUD FUNCTIONS */
     public function create():bool {
-        $values = [$this->precio_adulto, $this->precio_adol, $this->precio_nino, $this->id_formato, $this->id_idioma, $this->id_subtitulos, "'".$this->fecha."'", "'".$this->hora."'", $this->id_sala, $this->id_pelicula];
+        $values = [$this->precio_adulto, $this->precio_adol, $this->precio_nino, $this->id_formato, $this->id_idioma, ($this->id_subtitulos == null) ? "NULL":$this->id_subtitulos, "'".$this->fecha."'", "'".$this->hora."'", $this->id_sala, $this->id_pelicula];
         return Self::_executeQuery(" INSERT INTO  " . Self::getTablename() . " (precio_adulto, precio_adol, precio_nino, id_formato, id_idioma, id_subtitulos, fecha, hora, id_sala, id_pelicula) VALUES (". implode(", ", $values) . ")");
     }
     public function delete():bool{
@@ -51,14 +51,14 @@ class FuncionDB extends ADBModel {
             fecha = '{$this->fecha}', hora = '{$this->hora}', id_sala = {$this->id_sala}, id_pelicula = {$this->id_pelicula} WHERE id = " . intval($this->id) );
     }
 
-    public static function getAll():DBPagination{
-        return Funcion::_getRows(Self::class);     
+    public static function getAll($atributes=[], $conditions="", $orderBy=""):DBPagination{
+        return Funcion::_getRows(Self::class, $atributes, $conditions, $orderBy);     
     }
     
     static public function getById($id): Funcion|null {
         $id = intval($id);
         return Self::transformRow(
-            Self::_fetchQuery("SELECT * FROM ".Self::getTablename()." WHERE id = {$id} ")
+            Self::_fetchQuery("SELECT * FROM ".Self::getTablename()." WHERE id = {$id} ", true)
         );
     }
 

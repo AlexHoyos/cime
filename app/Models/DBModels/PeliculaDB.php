@@ -46,8 +46,8 @@ class PeliculaDB extends ADBModel {
         return Self::_executeQuery("UPDATE ". Self::getTablename() . " SET titulo = '{$this->titulo}', anio = {$this->anio}, sinopsis = '{$this->sinopsis}', portada = '{$this->portada}', wallpaper = '{$this->wallpaper}', duracion = {$this->duracion}, id_clasificacion = {$this->id_clasificacion} WHERE id = " . intval($this->id) );
     }
 
-    public static function getAll():DBPagination{
-        return Pelicula::_getRows(Self::class);     
+    public static function getAll($atributes = [], $conditions = "", $orderBy = ""):DBPagination{
+        return Pelicula::_getRows(Self::class, $atributes, $conditions, $orderBy);     
     }
     
     static public function getById($id): Pelicula|null {

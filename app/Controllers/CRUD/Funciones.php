@@ -1,5 +1,7 @@
 <?php
 use CIME\Controllers\CRUD\DELETEModelMethod;
+use CIME\Controllers\CRUD\Funciones\POSTFuncionMethod;
+use CIME\Controllers\CRUD\Funciones\PUTFuncionMethod;
 use CIME\Controllers\CRUD\GETModelMethod;
 use CIME\Filters\AccountRoleFilter;
 use CIME\Models\Funcion;
@@ -21,13 +23,13 @@ include 'CRUDHeader.php';
         $httpMethod = new GETModelMethod(Funcion::class);
     } else if($_SERVER['REQUEST_METHOD'] === 'POST' && $restriction){
         $restriction = AccountRoleFilter::isAdminAccount($user->getId()); // Disponible solo para administradores
-        $httpMethod = null;
+        $httpMethod = new POSTFuncionMethod();
     } else if($_SERVER['REQUEST_METHOD'] === 'PUT' && $restriction){
         $restriction = AccountRoleFilter::isAdminAccount($user->getId()); // Disponible solo para administradores
-        $httpMethod = null;
+        $httpMethod = new PUTFuncionMethod();
     } else if ($_SERVER['REQUEST_METHOD'] === "DELETE" && $restriction){
         $restriction = AccountRoleFilter::isAdminAccount($user->getId()); // Disponible solo para administradores
-        $httpMethod = new DELETEModelMethod(Clasificacion::class);
+        $httpMethod = new DELETEModelMethod(Funcion::class);
     }
 
 include 'CRUDFooter.php';
