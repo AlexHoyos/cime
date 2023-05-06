@@ -121,3 +121,40 @@ footer {
 .register-form {
     width: 65%;
 }
+.clasificacion{
+    background-color: var(--gris-claro);
+    color: var(--light);
+    width: 40px;
+    height: 30px;
+    text-align: center;
+    margin-top: 10px;
+    margin-left: 20px;
+}
+.duracion{
+    background-color: var(--gris-oscuro);
+    color: var(--light);
+    width: 90px;
+    height: 30px;
+    text-align: center;
+    margin-top: -40px;
+    margin-left: 80px;
+}
+.sinopsis{
+    margin-top: 60px;
+    margin-left: -200px;
+}
+.calificacion1{
+    margin-left: 70px;
+}
+.reseña{
+    margin-left: 10px;
+    margin-top: -15px;
+    margin-bottom: 30px;
+    border-style: solid;
+    border-color: var(g--gris-oscuro);
+    
+}
+.calificacion2{
+    margin-left: 500px;
+    margin-top: -30px;
+}
