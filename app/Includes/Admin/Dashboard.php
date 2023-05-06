@@ -69,19 +69,19 @@ if (AccountRoleFilter::isUserAccount($userId)) {
                             <a class="nav-link" href="<?= WEB_URL . '/admin/Clasificaciones.php' ?>">Clasificaciones</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= WEB_URL . '/Sala.php' ?>">Salas</a>
+                            <a class="nav-link" href="<?= WEB_URL . '/admin/Salas.php' ?>">Salas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= WEB_URL . '/Funcion.php' ?>">Funciones</a>
+                            <a class="nav-link" href="<?= WEB_URL . '/admin/Funciones.php' ?>">Funciones</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= WEB_URL . '/Boleto.php' ?>">Boletos</a>
+                            <a class="nav-link" href="<?= WEB_URL . '/admin/Boletos.php' ?>">Boletos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= WEB_URL . '/Usuario.php' ?>">Usuarios</a>
+                            <a class="nav-link" href="<?= WEB_URL . '/admin/Usuarios.php' ?>">Usuarios</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Empleados</a>
+                            <a class="nav-link" href="<?= WEB_URL . '/admin/Empleados.php' ?>">Empleados</a>
                         </li>
                         <li class="menu">Reporte General</li>
                         <li class="nav-item">

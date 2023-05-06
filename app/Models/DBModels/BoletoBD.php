@@ -18,7 +18,7 @@ class BoletoBD extends ADBModel {
         protected $es_empleado
     ){}
 
-    protected static function getTablename(): String {
+    public static function getTablename(): String {
         return "boletos";
     }
 

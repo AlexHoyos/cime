@@ -15,7 +15,7 @@ class ResenaDB extends ADBModel {
         protected $id_boleto
     ){}
 
-    protected static function getTablename(): String {
+    public static function getTablename(): String {
         return "resena";
     }
 

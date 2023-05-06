@@ -13,7 +13,7 @@ class IdiomaDB extends ADBModel {
         protected $abreviacion
     ){}
 
-    protected static function getTablename(): String {
+    public static function getTablename(): String {
         return "idiomas";
     }
 

@@ -13,7 +13,7 @@ class SalaDB extends ADBModel {
         protected $nombre
     ){}
 
-    protected static function getTablename(): String {
+    public static function getTablename(): String {
         return "salas";
     }
 
@@ -36,17 +36,17 @@ class SalaDB extends ADBModel {
         return Self::_executeQuery(" DELETE FROM  " . Self::getTablename() . " WHERE id = " . intval($this->id));
     }
     public function update():bool{
-        return Self::_executeQuery("UPDATE ". Self::getTablename() . " SET nombre = '{$this->nombre}', WHERE id = " . intval($this->id) );
+        return Self::_executeQuery("UPDATE ". Self::getTablename() . " SET nombre = '{$this->nombre}' WHERE id = " . intval($this->id) );
     }
 
-    public static function getAll():DBPagination{
-        return Sala::_getRows(Self::class);     
+    public static function getAll($atributes = [], $conditions = "", $orderBy = ""):DBPagination{
+        return Sala::_getRows(Self::class, $atributes, $conditions, $orderBy);     
     }
-    
+
     static public function getById($id): Sala|null {
         $id = intval($id);
         return Self::transformRow(
-            Self::_fetchQuery("SELECT * FROM ".Self::getTablename()." WHERE id = {$id} ")
+            Self::_fetchQuery("SELECT * FROM ".Self::getTablename()." WHERE id = {$id} ", true)
         );
     }
 
