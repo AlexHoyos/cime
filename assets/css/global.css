@@ -247,6 +247,7 @@ input:checked form {
     margin-left: 220px;
     margin-top: -230px;
     width: 300px;
+}
 
 .clasificacion{
     background-color: var(--gris-claro);

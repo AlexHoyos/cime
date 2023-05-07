@@ -151,7 +151,7 @@ use CIME\Models\Pelicula;
             </table>
         </div>
         <div class="col-12">
-            <?php require('../app/Includes/Admin/PageNavigation.php'); ?>
+            <?php require('../app/Includes/PageNavigation.php'); ?>
         </div>
     </article>
 </section>
