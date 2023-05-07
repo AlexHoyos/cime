@@ -17,8 +17,9 @@ use CIME\Models\Usuario;
         if($sessionUID != 0){
             
             $userId = $sessionUID;
+            $usuario = Usuario::getById($userId);
             if(empty($userName)){
-                $usuario = Usuario::getById($userId);
+               
                 if($usuario instanceof Usuario){
                     $_SESSION["userName"] = $usuario->getNombre();
                     $userName = $_SESSION["userName"];
@@ -64,10 +65,10 @@ use CIME\Models\Usuario;
                 <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="<?=WEB_URL?>">Cartelera</a>
+                        <a class="nav-link active" aria-current="page" href="<?=WEB_URL?>/cartelera.php">Cartelera</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Proximamente</a>
+                        <a class="nav-link" href="<?=WEB_URL?>/proximamente.php">Proximamente</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<?=WEB_URL.'/nosotros.php'?>">Sobre Nosotros</a>
@@ -90,11 +91,18 @@ use CIME\Models\Usuario;
                 </ul>
             <?php } else { ?>
                 <ul class="navbar-nav ms-md-auto">
+                    <?php
+                    if($usuario->getRol()->getNombre() != "usr"){
+                    ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?=WEB_URL?>/admin">Dashboard</a>
+                    </li>
+                    <?php } ?>
                     <li class="nav-item">
                         <a class="nav-link align-self-right" href="/config.php"><?=$userName?></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Boletos</a>
+                        <a class="nav-link" href="<?=WEB_URL?>/boletos.php">Boletos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<?=WEB_URL?>/logout.php">Cerrar Sesión</a>
