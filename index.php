@@ -15,7 +15,7 @@ use CIME\Models\Pelicula;
         
     ?>
     <div class="carousel-item <?=$state?>">
-        <div class="img-carousel" style="background-image: url(app/Storage/peliculas/<?=$peli->wallpaper?>)"></div>
+        <div class="img-carousel" style="background-image: url(<?=WEB_URL?>/app/Storage/peliculas/<?=$peli->wallpaper?>)"></div>
         <div class="carousel-caption d-none d-md-block">
             <h4><?=$peli->titulo?></h4>
         </div>

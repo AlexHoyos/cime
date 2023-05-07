@@ -15,7 +15,7 @@
         <?php
         $i = 1;
         for($i = 1; $i<=$availablePages; $i++){?>
-        <li class="page-item"><a class="page-link" href="?page=<?=$i?>"><?=$i?></a></li>
+        <li class="page-item"><a class="page-link" href="?page=<?=$i?><?=$nextPageAdd?>"><?=$i?></a></li>
         <?php } ?>
         <li class="page-item">
         <a class="page-link" href="?page=<?=++$page?><?=$nextPageAdd?>" aria-label="Next">
