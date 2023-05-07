@@ -12,28 +12,29 @@ class DELETEModelMethod extends ACRUDControllerMethod {
 
     protected function prepare($params = []): void
     {
-        if(isset($params["id"])){
-
-            $modelInstance = $this->modelClass::getById(intval($params["id"]));
-            if($modelInstance != null){
-
-                if($modelInstance->delete()){
-                    $this->httpCode = 200;
-                    $this->response["msg"] = "Instancia eliminada";
-                } else {
-                    $this->httpCode = 500;
-                    $this->response["error"] = "Error al intentar eliminar";                    
-                }
-
-            } else {
-                $this->httpCode = 404;
-                $this->response["error"] = "No se encontró el modelo con esa ID";
-            }
-
-        } else {
+        if(isset($params["id"]) == false){
             $this->httpCode = 400;
             $this->response["error"] = "No se proporcionaron todos los parametros";
+            return;
         }
+
+        $modelInstance = $this->modelClass::getById(intval($params["id"]));
+        if($modelInstance == null){
+            $this->httpCode = 404;
+            $this->response["error"] = "No se encontró el modelo con esa ID";
+            return;
+        }
+
+        if($modelInstance->delete() == false){
+            $this->httpCode = 500;
+            $this->response["error"] = "Error al intentar eliminar";
+            return;
+        }
+
+        $this->httpCode = 200;
+        $this->response["msg"] = "Instancia eliminada";
+        return;
+
     }
 
 }
