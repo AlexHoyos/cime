@@ -67,9 +67,6 @@ use CIME\Models\Usuario;
                         <a class="nav-link active" aria-current="page" href="<?=WEB_URL?>">Cartelera</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Cartelera</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="#">Proximamente</a>
                     </li>
                     <li class="nav-item">

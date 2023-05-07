@@ -34,7 +34,7 @@ if (AccountRoleFilter::isUserAccount($userId)) {
     <title>Admin Panel</title>
 </head>
 
-<body>
+<body class="d-flex flex-row">
     <header>
         <nav class="navbar navbar-expand-lg p-0" id="headerNav">
             <div class="container-fluid">
@@ -58,27 +58,30 @@ if (AccountRoleFilter::isUserAccount($userId)) {
                         <li class="nav-item">
                             <a class="nav-link" href="#">Reportes ventas</a>
                         </li>
+                        <?php
+                            if( AccountRoleFilter::isAdminAccount($userId) ) {
+                        ?>
                         <li class="menu">Admin</li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= WEB_URL . '/Pelicula.php' ?>">Peliculas</a>
+                            <a class="nav-link" href="<?= WEB_URL . '/admin/Peliculas.php' ?>">Peliculas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= WEB_URL . '/Clasificacion.php' ?>">Clasificaciones</a>
+                            <a class="nav-link" href="<?= WEB_URL . '/admin/Clasificaciones.php' ?>">Clasificaciones</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= WEB_URL . '/Sala.php' ?>">Salas</a>
+                            <a class="nav-link" href="<?= WEB_URL . '/admin/Salas.php' ?>">Salas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= WEB_URL . '/Funcion.php' ?>">Funciones</a>
+                            <a class="nav-link" href="<?= WEB_URL . '/admin/Funciones.php' ?>">Funciones</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= WEB_URL . '/Boleto.php' ?>">Boletos</a>
+                            <a class="nav-link" href="<?= WEB_URL . '/admin/Boletos.php' ?>">Boletos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= WEB_URL . '/Usuario.php' ?>">Usuarios</a>
+                            <a class="nav-link" href="<?= WEB_URL . '/admin/Usuarios.php' ?>">Usuarios</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Empleados</a>
+                            <a class="nav-link" href="<?= WEB_URL . '/admin/Empleados.php' ?>">Empleados</a>
                         </li>
                         <li class="menu">Reporte General</li>
                         <li class="nav-item">
@@ -87,6 +90,8 @@ if (AccountRoleFilter::isUserAccount($userId)) {
                         <li class="nav-item">
                             <a class="nav-link" href="#">Estadisticas</a>
                         </li>
+                        <?php } ?>
+                        <li class="menu">Opciones</li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Salir</a>
                         </li>

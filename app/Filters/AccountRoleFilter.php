@@ -2,6 +2,7 @@
 
 namespace CIME\Filters;
 
+use CIME\Models\Rol;
 use CIME\Models\Usuario;
 
 class AccountRoleFilter {
@@ -17,8 +18,14 @@ class AccountRoleFilter {
     static function isUserAccount($userId): bool {
         $user = Usuario::getById($userId);
         if($user != null)
-            if($user->getRol() == 'usr')
+            $rol = $user->getRol();
+            if($rol instanceof Rol){
+
+                if($rol->getNombre() == 'usr')
+                    return true;
+            } else {
                 return true;
+            }
         return false;
 
     }
@@ -32,8 +39,10 @@ class AccountRoleFilter {
     static function isEmpAccount($userId): bool {
         $user = Usuario::getById($userId);
         if($user != null)
-            if($user->getRol() == 'emp')
-                return true;
+            $rol = $user->getRol();
+            if($rol instanceof Rol)
+                if($rol->getNombre() == 'emp')
+                    return true;
         return false;
     }
 
@@ -46,8 +55,10 @@ class AccountRoleFilter {
     static function isAdminAccount($userId): bool {
         $user = Usuario::getById($userId);
         if($user != null)
-            if($user->getRol() == 'adm')
-                return true;
+            $rol = $user->getRol();
+            if($rol instanceof Rol)
+                if($rol->getNombre() == 'adm')
+                    return true;
         return false;
     }
 

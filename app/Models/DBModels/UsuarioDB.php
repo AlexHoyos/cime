@@ -17,18 +17,18 @@ class UsuarioDB extends ADBModel {
         protected $nacimiento,
         protected $password,
         protected $reg_date,
-        protected $rol,
+        protected $id_rol,
         protected $secure_code
     ){}
 
-    protected static function getTablename(): String {
+    public static function getTablename(): String {
         return "usuarios";
     }
 
     public static function transformRow($row): Usuario|null {
             if($row != null)
                 return new Usuario($row->id, $row->nombre, $row->apellido, $row->correo, $row->telefono,
-                    $row->nacimiento, $row->password, $row->reg_date, $row->rol, $row->secure_code);
+                    $row->nacimiento, $row->password, $row->reg_date, $row->id_rol, $row->secure_code);
             
             return null;
     }
@@ -39,16 +39,14 @@ class UsuarioDB extends ADBModel {
 
     /* CRUD FUNCTIONS */
     public function create():bool {
-        $values = [$this->nombre, $this->apellido, $this->correo, $this->telefono, $this->nacimiento, $this->password, $this->rol];
-        for($i = 0; $i<count($values); $i++)
-            $values[$i] = '"'.$values[$i].'"';
-        return Self::_executeQuery(" INSERT INTO  " . Self::getTablename() . " (nombre, apellido, correo, telefono, nacimiento, password, rol) VALUES (". implode(", ", $values) . ")");
+        $values = ["'{$this->nombre}'", "'{$this->apellido}'", "'{$this->correo}'", $this->telefono, "'{$this->nacimiento}'", "'{$this->password}'", $this->id_rol];
+        return Self::_executeQuery(" INSERT INTO  " . Self::getTablename() . " (nombre, apellido, correo, telefono, nacimiento, password, id_rol) VALUES (". implode(", ", $values) . ")");
     }
     public function delete():bool{
         return Self::_executeQuery(" DELETE FROM  " . Self::getTablename() . " WHERE id = " . intval($this->id));
     }
     public function update():bool{
-        return Self::_executeQuery("UPDATE ". Self::getTablename() . " SET nombre = '{$this->nombre}', apellido = '{$this->apellido}', password = '{$this->password}', rol = '{$this->rol}', secure_code = {$this->secure_code} WHERE id = " . intval($this->id) );
+        return Self::_executeQuery("UPDATE ". Self::getTablename() . " SET nombre = '{$this->nombre}', apellido = '{$this->apellido}', password = '{$this->password}', id_rol = {$this->id_rol}, secure_code = {$this->secure_code} WHERE id = " . intval($this->id) );
     }
 
     static public function getAll():DBPagination{

@@ -12,17 +12,16 @@ class ResenaDB extends ADBModel {
         protected $id,
         protected $calificacion,
         protected $detalles,
-        protected $id_usuario,
-        protected $id_pelicula
+        protected $id_boleto
     ){}
 
-    protected static function getTablename(): String {
+    public static function getTablename(): String {
         return "resena";
     }
 
     public static function transformRow($row): Resena|null {
             if($row != null)
-                return new Resena($row->id, $row->calificacion, $row->detalles, $row->id_usuario, $row->id_pelicula);
+                return new Resena($row->id, $row->calificacion, $row->detalles, $row->id_boleto);
             
             return null;
     }
@@ -33,8 +32,8 @@ class ResenaDB extends ADBModel {
 
     /* CRUD FUNCTIONS */
     public function create():bool {
-        $values = [$this->calificacion, $this->detalles, $this->id_usuario, $this->id_pelicula];
-        return Self::_executeQuery(" INSERT INTO  " . Self::getTablename() . " (calificacion, detalles, id_usuario, id_pelicula) VALUES (". implode(", ", $values) . ")");
+        $values = [$this->calificacion, "'{$this->detalles}'", $this->id_boleto];
+        return Self::_executeQuery(" INSERT INTO  " . Self::getTablename() . " (calificacion, detalles, id_boleto) VALUES (". implode(", ", $values) . ")");
     }
     public function delete():bool{
         return Self::_executeQuery(" DELETE FROM  " . Self::getTablename() . " WHERE id = " . intval($this->id));
