@@ -27,6 +27,18 @@ class Pelicula extends PeliculaDB {
     public function setDuracion($duracion){ $this->duracion = intval($duracion); }
     public function setClasificacion($clasificacion){ $this->id_clasificacion = intval($clasificacion); }
 
+    public static function getPeliculasCarousel(){
+        $tablename = Self::getTablename();
+        $funcionesTablename = Funcion::getTablename();
+        return Pelicula::_fetchQuery("SELECT {$tablename}.* FROM {$funcionesTablename},{$tablename} WHERE {$funcionesTablename}.id_pelicula = {$tablename}.id AND fecha >= CURRENT_DATE AND {$tablename}.wallpaper != '' GROUP BY {$funcionesTablename}.id_pelicula");
+    }
+
+    public static function getPeliculasInCartelera(){
+        $tablename = Self::getTablename();
+        $funcionesTablename = Funcion::getTablename();
+        return Pelicula::_fetchQuery("SELECT {$tablename}.* FROM {$funcionesTablename},{$tablename} WHERE {$funcionesTablename}.id_pelicula = {$tablename}.id AND fecha >= CURRENT_DATE GROUP BY {$funcionesTablename}.id_pelicula");
+    }
+
     public function toArray(): array{
         return [
             "id" => $this->getId(),
