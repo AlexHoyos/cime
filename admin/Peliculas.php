@@ -143,6 +143,7 @@ use CIME\Models\Pelicula;
                             <a href="?id=<?=$pelicula->getId()?>" class="btn btn-success">Ver</a>
                             <button class="btn btn-warning" onclick="openEdit(<?=$pelicula->getId()?>)">Editar</button>
                             <button class="btn btn-danger" onclick="deleteObject(<?=$pelicula->getId()?>)">Eliminar</button>
+                            <a href="Funciones.php?peliId=<?=$pelicula->getId()?>"class="btn btn-primary">+ Función</a>
                         </td>
                     </tr>
                     <?php } ?>
@@ -199,7 +200,7 @@ use CIME\Models\Pelicula;
         $("#sinopsisPelicula").val("")
         $("#duracionPelicula").val("")
         $("#clasificacionPelicula").val(0)
-        $("#saveBtn").attr('onclick', 'edit()')
+        $("#saveBtn").attr('onclick', 'add()')
         openModal()
     }
 
