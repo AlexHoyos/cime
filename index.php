@@ -42,7 +42,8 @@ use CIME\Models\Pelicula;
     foreach($peliculasEnCartelera as $peli){
     ?>
     <div class="col-12 col-md-6 col-lg-4 div-img m-1"
-            style="min-height: 350px;background-image: url(<?=WEB_URL?>/app/Storage/peliculas/<?=$peli->portada?>);width: 250px;margin-left: 20px;cursor:pointer;">
+            style="min-height: 350px;background-image: url(<?=WEB_URL?>/app/Storage/peliculas/<?=$peli->portada?>);width: 250px;margin-left: 20px;cursor:pointer;"
+            onclick="location.href='pelicula.php?id=<?=$peli->id?>'">
         </div>
     <?php } ?>
     </div>
