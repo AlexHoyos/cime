@@ -28,7 +28,7 @@ use CIME\Models\Pelicula;
     if(isset($_GET["sub"]))
         $subID = intval($_GET["sub"]);
 
-    $peliculasEnCartelera = Pelicula::getPeliculasInCartelera($fecha);
+    $peliculasEnCartelera = Pelicula::getPeliculasInCartelera($fecha, $peliId);
 
 ?>
 
