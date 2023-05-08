@@ -116,7 +116,7 @@ use CIME\Models\Pelicula;
                             <?php
                                 foreach($funciones as $funcion){
                             ?>
-                                <button class="btn btn-secondary"><?=$funcion->hora?></button>
+                                <a href="reservar.php?funcion=<?=$funcion->id?>" class="btn btn-secondary"><?=$funcion->hora?></a>
                             <?php } ?>
                         </div>
                         <br>
