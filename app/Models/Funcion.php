@@ -66,4 +66,73 @@ class Funcion extends FuncionDB {
         return ($funcion == null);
     }
 
+    /**
+     * Obtener las funciones disponibles de una pelicula
+     *
+     * Si se elige el modo con formato entonces las funciones se dividen en grupos
+     * Los grupos se nombran por [ID_FORMATO]_[ID_IDIOMA]_[ID_SUBTITULOS]
+     * Puedes usar la funcion estatica getDescriptionGrupoFunciones($nombreGrupo) para obtener una descripcion del grupo
+     * 
+     * @param int $peliculaId
+     * @param string $fecha
+     * @param int $formatoID - Filtro por tipo de formato
+     * @param int $idiomaID - Filtro por idioma
+     * @param int $subID - Filtro por subtitulos
+     * @param boolean $formated - Si es verdad entonces se regresa un arreglo ordenado y filtrado de las peliculas
+     * @return array
+     */
+    public static function getFuncionesPelicula($peliculaId, $formatoID = 0, $idiomaID = 0, $subID = 0, $fecha = "", $formated = false){
+        if($fecha == "")
+            $fecha = date('Y-m-d');
+
+        $peliculaId = intval($peliculaId);
+        $filters = "";
+
+        if($formatoID > 0)
+            $filters .= "AND id_formato={$formatoID} ";
+        if($idiomaID > 0)
+            $filters .= "AND id_idioma={$idiomaID} ";
+        if($subID > 0)
+            $filters .= "AND id_subtitulos={$subID}";
+
+        $funcionTablename = Self::getTablename();
+        $query = "SELECT * FROM {$funcionTablename} WHERE fecha = '{$fecha}' AND id_pelicula = {$peliculaId} {$filters}";
+        $rows = Funcion::_fetchQuery($query);
+
+        $funciones = [];
+        if($formated){
+
+            foreach($rows as $funcion){
+                $funcion = (object) $funcion;
+                $groupName = $funcion->id_formato."_".$funcion->id_idioma."_".intval($funcion->id_subtitulos);
+                $funciones[$groupName][] = $funcion;
+            }
+
+        } else {
+            $funciones = $rows;
+        }
+
+        return $funciones;
+
+    }
+
+    public static function getDescriptionGrupoFunciones($groupName){
+        $data = explode("_", $groupName);
+        $formatoID = $data[0];
+        $idiomaID = $data[1];
+        $subID = $data[2];
+
+        $formatoName = Formato::getById($formatoID)->getNombre();
+        $idiomaName = strtoupper(Idioma::getById($idiomaID)->getNombre());
+        
+        $descripcion = "{$formatoName} - {$idiomaName}";
+        if($subID != 0){
+            $subName = strtoupper(Idioma::getById($subID)->getNombre());
+            $descripcion .= " SUB {$subName}";
+        }
+
+        return $descripcion;
+
+    }
+
 }
