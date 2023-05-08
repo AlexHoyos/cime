@@ -7,7 +7,7 @@ abstract class ADBModel {
     public static \PDO $dbConn;
     protected $class = Self::class;
 
-    abstract protected static function getTablename(): String;
+    abstract public static function getTablename(): String;
     abstract public static function transformRow($row): ADBModel|null;
     abstract public static function transformRows($rows): Array;
     /* CRUD FUNCTIONS */ 

@@ -17,8 +17,9 @@ use CIME\Models\Usuario;
         if($sessionUID != 0){
             
             $userId = $sessionUID;
+            $usuario = Usuario::getById($userId);
             if(empty($userName)){
-                $usuario = Usuario::getById($userId);
+               
                 if($usuario instanceof Usuario){
                     $_SESSION["userName"] = $usuario->getNombre();
                     $userName = $_SESSION["userName"];
@@ -51,8 +52,8 @@ use CIME\Models\Usuario;
     <header>
         <div class="d-flex align-items-center justify-content-end justify-content-md-center p-3" id="headerAbove">
             <img class="position-absolute" style="left:0;" src="<?= WEB_URL ?>/app/Storage/LOGO.png">
-            <form action="#" role="search" class=" d-flex align-items-center justify-content-center" >
-                <input type="text" class="buscar px-2" placeholder="Buscar pelicula...">
+            <form action="<?=WEB_URL?>/busqueda.php" method="GET" role="search" class=" d-flex align-items-center justify-content-center" >
+                <input type="text" class="buscar px-2" name="search" placeholder="Buscar pelicula...">
                 <button type="button" class="btnbuscar">Buscar</button>
             </form>
         </div>
@@ -64,13 +65,10 @@ use CIME\Models\Usuario;
                 <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="<?=WEB_URL?>">Cartelera</a>
+                        <a class="nav-link active" aria-current="page" href="<?=WEB_URL?>/cartelera.php">Cartelera</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Cartelera</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Proximamente</a>
+                        <a class="nav-link" href="<?=WEB_URL?>/proximamente.php">Proximamente</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<?=WEB_URL.'/nosotros.php'?>">Sobre Nosotros</a>
@@ -93,11 +91,18 @@ use CIME\Models\Usuario;
                 </ul>
             <?php } else { ?>
                 <ul class="navbar-nav ms-md-auto">
+                    <?php
+                    if($usuario->getRol()->getNombre() != "usr"){
+                    ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?=WEB_URL?>/admin">Dashboard</a>
+                    </li>
+                    <?php } ?>
                     <li class="nav-item">
                         <a class="nav-link align-self-right" href="/config.php"><?=$userName?></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Boletos</a>
+                        <a class="nav-link" href="<?=WEB_URL?>/boletos.php">Boletos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<?=WEB_URL?>/logout.php">Cerrar Sesión</a>

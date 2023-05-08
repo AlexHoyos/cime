@@ -16,7 +16,7 @@ class AsientoDB extends ADBModel {
         protected $id_sala
     ){}
 
-    protected static function getTablename(): String {
+    public static function getTablename(): String {
         return "asientos";
     }
 
@@ -33,7 +33,7 @@ class AsientoDB extends ADBModel {
 
     /* CRUD FUNCTIONS */
     public function create():bool {
-        return Self::_executeQuery(" INSERT INTO  " . Self::getTablename() . " (nombre, fila, columna, id_sala) VALUES ('{$this->nombre}', {$this->fila}, {$this->columna}, {$this->id_sala}");
+        return Self::_executeQuery(" INSERT INTO  " . Self::getTablename() . " (nombre, fila, columna, id_sala) VALUES ('{$this->nombre}', {$this->fila}, {$this->columna}, {$this->id_sala})");
     }
     public function delete():bool{
         return Self::_executeQuery(" DELETE FROM  " . Self::getTablename() . " WHERE id = " . intval($this->id));
@@ -42,8 +42,8 @@ class AsientoDB extends ADBModel {
         return Self::_executeQuery("UPDATE ". Self::getTablename() . " SET nombre = '{$this->nombre}', fila = {$this->fila}, columna = {$this->columna} WHERE id = " . intval($this->id) );
     }
 
-    public static function getAll():DBPagination{
-        return RolDB::_getRows(Self::class);     
+    public static function getAll($atributes = [], $conditions = "", $orderBy = ""):DBPagination{
+        return RolDB::_getRows(Self::class, $atributes, $conditions, $orderBy);
     }
 
     static public function getById($id): Asiento|null {

@@ -11,6 +11,7 @@ class PeliculaDB extends ADBModel {
     public function __construct(
         protected $id,
         protected $titulo,
+        protected $anio,
         protected $sinopsis,
         protected $portada,
         protected $wallpaper,
@@ -18,13 +19,13 @@ class PeliculaDB extends ADBModel {
         protected $id_clasificacion
     ){}
 
-    protected static function getTablename(): String {
+    public static function getTablename(): String {
         return "peliculas";
     }
 
     public static function transformRow($row): Pelicula|null {
             if($row != null)
-                return new Pelicula($row->id, $row->titulo, $row->sinopsis, $row->portada, $row->wallpaper, $row->duracion, $row->id_clasificacion);
+                return new Pelicula($row->id, $row->titulo, $row->anio, $row->sinopsis, $row->portada, $row->wallpaper, $row->duracion, $row->id_clasificacion);
             
             return null;
     }
@@ -35,24 +36,24 @@ class PeliculaDB extends ADBModel {
 
     /* CRUD FUNCTIONS */
     public function create():bool {
-        $values = [$this->titulo, $this->sinopsis, $this->portada, $this->wallpaper, $this->duracion, $this->id_clasificacion];
-        return Self::_executeQuery(" INSERT INTO  " . Self::getTablename() . " (titulo, sinopsis, portada, wallpaper, duracion, id_clasificacion) VALUES (". implode(", ", $values) . ")");
+        $values = ["'{$this->titulo}'", $this->anio, "'{$this->sinopsis}'", "'{$this->portada}'", "'{$this->wallpaper}'", $this->duracion, $this->id_clasificacion];
+        return Self::_executeQuery(" INSERT INTO  " . Self::getTablename() . " (titulo, anio, sinopsis, portada, wallpaper, duracion, id_clasificacion) VALUES (". implode(", ", $values) . ")");
     }
     public function delete():bool{
         return Self::_executeQuery(" DELETE FROM  " . Self::getTablename() . " WHERE id = " . intval($this->id));
     }
     public function update():bool{
-        return Self::_executeQuery("UPDATE ". Self::getTablename() . " SET titulo = {$this->titulo}, sinopsis = {$this->sinopsis}, portada = {$this->portada}, wallpaper = {$this->wallpaper}, duracion = {$this->duracion}, id_clasificacion = {$this->id_clasificacion} WHERE id = " . intval($this->id) );
+        return Self::_executeQuery("UPDATE ". Self::getTablename() . " SET titulo = '{$this->titulo}', anio = {$this->anio}, sinopsis = '{$this->sinopsis}', portada = '{$this->portada}', wallpaper = '{$this->wallpaper}', duracion = {$this->duracion}, id_clasificacion = {$this->id_clasificacion} WHERE id = " . intval($this->id) );
     }
 
-    public static function getAll():DBPagination{
-        return Pelicula::_getRows(Self::class);     
+    public static function getAll($atributes = [], $conditions = "", $orderBy = ""):DBPagination{
+        return Pelicula::_getRows(Self::class, $atributes, $conditions, $orderBy);     
     }
     
     static public function getById($id): Pelicula|null {
         $id = intval($id);
         return Self::transformRow(
-            Self::_fetchQuery("SELECT * FROM ".Self::getTablename()." WHERE id = {$id} ")
+            Self::_fetchQuery("SELECT * FROM ".Self::getTablename()." WHERE id = {$id} ", true)
         );
     }
 

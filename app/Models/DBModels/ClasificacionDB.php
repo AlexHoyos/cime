@@ -17,7 +17,7 @@ class ClasificacionDB extends ADBModel {
         protected $adol_adult
     ){}
 
-    protected static function getTablename(): String {
+    public static function getTablename(): String {
         return "clasificacion";
     }
 

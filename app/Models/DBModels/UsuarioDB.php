@@ -21,7 +21,7 @@ class UsuarioDB extends ADBModel {
         protected $secure_code
     ){}
 
-    protected static function getTablename(): String {
+    public static function getTablename(): String {
         return "usuarios";
     }
 
