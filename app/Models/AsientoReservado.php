@@ -6,11 +6,8 @@ use CIME\Models\DBModels\AsientoReservadoDB;
 
 class AsientoReservado extends AsientoReservadoDB {
 
-    public function getId() { return $this->id; }
-    public function getAsiento() { return $this->id_asiento; }
-    public function isNino() { return $this->is_nino; }
-    public function isAdol() { return $this->is_adol; }
-    public function isAdulto() { return $this->is_adulto; }
-    public function getBoleto() { return $this->id_boleto; }
+    public function getIdAsiento() { return $this->id_asiento; }
+    public function getIdFuncion() { return $this->id_funcion; }
+    public function getIdBoleto() { return $this->id_boleto; }
 
 }

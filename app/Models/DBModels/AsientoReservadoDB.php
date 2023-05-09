@@ -9,11 +9,8 @@ use CIME\Models\AsientoReservado;
 class AsientoReservadoDB extends ADBModel {
 
     public function __construct(
-        protected $id,
         protected $id_asiento,
-        protected $is_nino,
-        protected $is_adol,
-        protected $is_adulto,
+        protected $id_funcion,
         protected $id_boleto
     ){}
 
@@ -23,7 +20,7 @@ class AsientoReservadoDB extends ADBModel {
 
     public static function transformRow($row): AsientoReservado|null {
         if($row != null)
-            return new AsientoReservado($row->id, $row->id_asiento, $row->is_nino, $row->is_adol, $row->is_adulto, $row->id_boleto);
+            return new AsientoReservado($row->id_asiento, $row->id_funcion, $row->id_boleto);
         
         return null;
     }
@@ -34,23 +31,31 @@ class AsientoReservadoDB extends ADBModel {
 
     /* CRUD FUNCTIONS */
     public function create():bool {
-        return Self::_executeQuery(" INSERT INTO  " . Self::getTablename() . " (id_asiento, is_nino, is_adol, is_adulto, id_boleto) VALUES ({$this->id_asiento}, {$this->is_nino}, {$this->is_adol}, {$this->is_adulto}, {$this->id_boleto})");
+        return Self::_executeQuery(" INSERT INTO  " . Self::getTablename() . " (id_asiento, id_funcion, id_boleto) VALUES ({$this->id_asiento}, {$this->id_funcion}, {$this->id_boleto})");
     }
     public function delete():bool{
-        return Self::_executeQuery(" DELETE FROM  " . Self::getTablename() . " WHERE id = " . intval($this->id));
+        return Self::_executeQuery(" DELETE FROM  " . Self::getTablename() . " WHERE id_asiento = " . intval($this->id_asiento) . " AND id_funcion = ".intval($this->id_funcion)." AND id_boleto = ".intval($this->id_boleto));
     }
     public function update():bool{
         return false;
     }
 
-    public static function getAll():DBPagination{
-        return RolDB::_getRows(Self::class);
+    public static function getAll($atributes=[], $conditions="", $orderBy=""):DBPagination{
+        return RolDB::_getRows(Self::class, $atributes, $conditions, $orderBy);
     }
 
-    static public function getById($id): AsientoReservado|null {
-        $id = intval($id);
+/**
+ * Get AsientoReservado por su llave primaria
+ *
+ * @param array $id - Debe contener un arreglo con 3 llaves id_asiento, id_funcion e id_boleto
+ * @return AsientoReservado|null
+ */
+    static public function getById($id=[]): AsientoReservado|null {
+        $id_asiento = intval($id["id_asiento"]);
+        $id_funcion = intval($id["id_funcion"]);
+        $id_boleto = intval($id["id_boleto"]);
         return Self::transformRow(
-            Self::_fetchQuery("SELECT * FROM ".Self::getTablename()." WHERE id = {$id} ")
+            Self::_fetchQuery("SELECT * FROM ".Self::getTablename()." WHERE id_asiento = {$id_asiento} AND id_funcion = {$id_funcion} AND id_boleto = {$id_boleto}", true)
         );
     }
 }

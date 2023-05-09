@@ -54,6 +54,63 @@ class MapaSala {
 
     }
 
+    public function getHtmlUserInput($funcion):string{
+
+        if( ($funcion instanceof Funcion) == false )
+            return "FUNCIÓN INVALIDA";
+
+        $HTML = '
+        <div class="row m-0 p-0">
+            <div class="col-12 d-flex justify-content-center">
+                <div class="bg-secondary" style="height:10px; width:'. intval(50*$this->columnas) .'px"></div>
+            </div>
+        ';
+
+        $idx = 0;
+        $asientoActual = (object) $this->asientos[$idx];
+
+        for($i = 1; $i<=$this->filas; $i++){
+
+            $HTML .= '<div class="col-12 d-flex flex-row p-2 justify-content-center">';
+
+            for($j = 1; $j<=$this->columnas; $j++){
+
+                if($asientoActual != null){
+
+                    if($asientoActual->fila == $i && $asientoActual->columna == $j){
+                        // Revisamos si esta ocupado
+                        $asientosReservados = AsientoReservado::getAll([], "id_asiento = {$asientoActual->id} AND id_funcion = {$funcion->getId()}");
+                        $asientosReservados->page(1);
+                        $isAsientoReservado = $asientosReservados->totalRows() > 0;
+                        
+                        if($isAsientoReservado == true)
+                            $HTML .= '<button class="bg-secondary text-center p-1 mx-1" disabled>' . $asientoActual->nombre . '</button>';
+                        else
+                            $HTML .= '<button onclick="selectAsiento(this)" data-asientoID="'.$asientoActual->id.'" class="bg-warning text-center p-1 mx-1">' . $asientoActual->nombre . '</button>';
+                        
+                        if($idx+1 < count($this->asientos))
+                            $asientoActual = (object) $this->asientos[++$idx];
+                        else
+                            $asientoActual = null;
+                    } else {
+                        $HTML .= '<div id="mapaSala-'.$i.'-'.$j.'" class="bg-dark text-dark text-center p-1 mx-1">---</div>';
+                    }
+
+                } else {
+                    $HTML .= '<div id="mapaSala-'.$i.'-'.$j.'" class="bg-dark text-dark text-center p-1 mx-1">---</div>';
+                }
+
+            }
+
+                $HTML .= '</div>';
+
+        }
+        $HTML .= '</div>';
+
+        return $HTML;
+
+    }
+
     public static function getHtmlMapInput($filas, $columnas, $salaId = 0){
 
         // CREAMOS EL MAPA EN NEGRO
