@@ -4,6 +4,7 @@ namespace CIME\Models\DBModels;
 
 use CIME\Database\ADBModel;
 use CIME\Database\DBPagination;
+use CIME\Models\Asiento;
 use CIME\Models\AsientoReservado;
 
 class AsientoReservadoDB extends ADBModel {
@@ -66,4 +67,16 @@ class AsientoReservadoDB extends ADBModel {
         $asientos->page(1);
         return $asientos->totalRows() == 0;
     }
+
+    static public function getAsientosFromBoletoId($boletoID){
+        $boletoID = intval($boletoID);
+        $asientoReservadoTn = Self::getTablename();
+        $asientosTn = Asiento::getTablename();
+        $asientos = Self::_fetchQuery("SELECT {$asientosTn}.* FROM {$asientoReservadoTn},{$asientosTn} WHERE {$asientoReservadoTn}.id_asiento = {$asientosTn}.id AND {$asientoReservadoTn}.id_boleto = {$boletoID}");
+        
+        return Asiento::transformRows(
+            $asientos
+        );
+    }
+
 }
