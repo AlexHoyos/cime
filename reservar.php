@@ -10,7 +10,7 @@ use CIME\Models\Funcion;
     if(isset($_GET["step"]))
         $step = intval($_GET["step"]);
     
-    if($step == 1 && SessionFilter::existsUserSession())
+    if($step == 1 && SessionFilter::existsUserSession(""))
         $step = 2;
 
     $funcionID = 0;
@@ -26,7 +26,7 @@ use CIME\Models\Funcion;
     <div class="col-12" id="pageTitle">
         <h1>Reservación</h1>
     </div>
-
+    <input type="hidden" value="<?=$step?>" id="step">
     <div class="row">
 
         <div class="col-12 d-flex justify-content-center">
@@ -93,9 +93,27 @@ use CIME\Models\Funcion;
 
                 <br>
                 <?=$funcion->getSala()->getMapaSala()->getHtmlUserInput($funcion)?>
-
+                <div class="d-flex w-100 justify-content-center">
+                    <button class="btn btn-primary w-50" onclick="saveAsientos()">Continuar</button>
+                </div>
             <?php } else if($step == 4) { ?>
 
+                <h4>Resumen pedido:</h4>
+                <p>Total asientos: <b id="total_asientos">0</b></p>
+                <p>-- Adultos: <b id="asientos_adultos">0</b></p>
+                <p>-- Adolescentes: <b id="asientos_adols">0</b></p>
+                <p>-- Niños: <b id="asientos_ninos">0</b></p>
+                <p>Subtotal: <b id="subtotal">$100</b></p>
+                <!-- isset($_POST["asientos"], $_POST["adultos"], $_POST["adols"], $_POST["ninos"], $_POST["funcion_id"], $_POST["correo"] -->
+                <form action="<?=WEB_URL?>/app/Controllers/BoletoPayment.php?funcion_id=<?=$_GET["funcion"]?>" method="post">
+                    <input type="hidden" name="asientos" id="asientos">
+                    <input type="hidden" name="adultos" id="adultos">
+                    <input type="hidden" name="adols" id="adols">
+                    <input type="hidden" name="ninos" id="ninos">
+                    <input type="hidden" name="correo" id="correo">
+
+                    <button class="btn btn-primary w-75" type="submit">Reservar y pagar</button>
+                </form>
             <?php } ?>
 
         </div>
@@ -128,7 +146,7 @@ use CIME\Models\Funcion;
 <?php
 
     } else {
-        header("Location: /");
+        //header("Location: /");
     }
 
     include './app/Includes/footer.php';

@@ -58,4 +58,12 @@ class AsientoReservadoDB extends ADBModel {
             Self::_fetchQuery("SELECT * FROM ".Self::getTablename()." WHERE id_asiento = {$id_asiento} AND id_funcion = {$id_funcion} AND id_boleto = {$id_boleto}", true)
         );
     }
+
+    static public function isAsientoDisponible($asientoID, $funcionID){
+        $asientoID = intval($asientoID);
+        $funcionID = intval($funcionID);
+        $asientos = Self::getAll([], "id_asiento = {$asientoID} AND id_funcion = {$funcionID}");
+        $asientos->page(1);
+        return $asientos->totalRows() == 0;
+    }
 }

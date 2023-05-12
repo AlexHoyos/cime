@@ -4,6 +4,7 @@ session_start();
 
 use CIME\Database\ADBModel;
 use CIME\Database\DatabaseConn;
+use Omnipay\Omnipay;
 use PHPMailer\PHPMailer\PHPMailer;
 
 include_once $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
@@ -14,7 +15,8 @@ spl_autoload_register(function ($class_name) {
     if(str_contains($class_name, "Enums"))
         $class_name .= '.enum';
     $route = str_replace("CIME", "", $class_name . '.php');
-    include_once WEB_PATH . '/'.$route;
+    if(file_exists(WEB_PATH . '/'.$route))
+        include_once WEB_PATH . '/'.$route;
 });
 
 $_dbConn = new DatabaseConn(DB_ENGINE, DB_HOST, DB_PORT, DB_DBNAME, DB_USER, DB_PASSW);
@@ -30,3 +32,9 @@ $mail->Host       = EMAIL_SMTP_HOST;
 $mail->Username   = EMAIL_USER;
 $mail->Password   = EMAIL_PASSW;
 $mail->SetFrom(EMAIL_USER, "CIME NOREPLY");
+
+$gateway = Omnipay::create('PayPal_Rest');
+$gateway->setClientId(CLIENT_ID);
+$gateway->setSecret(CLIENT_SECRET);
+$gateway->setTestMode(PAYPAL_PROD == false);
+

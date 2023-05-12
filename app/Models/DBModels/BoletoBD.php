@@ -1,5 +1,7 @@
 <?php
 
+namespace CIME\Models\DBModels;
+
 use CIME\Database\ADBModel;
 use CIME\Database\DBPagination;
 use CIME\Models\Boleto;
@@ -35,7 +37,7 @@ class BoletoBD extends ADBModel {
 
     /* CRUD FUNCTIONS */
     public function create():bool {
-        $values = [$this->id_estado,  $this->num_adultos, $this->num_adols, $this->num_ninos, $this->id_usuario, "'{$this->correo}'", $this->id_funcion, boolval($this->es_empleado)];
+        $values = [$this->id_estado,  $this->num_adultos, $this->num_adols, $this->num_ninos, $this->id_usuario, "'{$this->correo}'", $this->id_funcion, intval(boolval($this->es_empleado))];
         return Self::_executeQuery(" INSERT INTO  " . Self::getTablename() . " (id_estado, num_adultos, num_adols, num_ninos, id_usuario, correo, id_funcion, es_empleado) VALUES (". implode(", ", $values) . ")");
     }
     public function delete():bool{
@@ -45,14 +47,14 @@ class BoletoBD extends ADBModel {
         return Self::_executeQuery("UPDATE ". Self::getTablename() . " SET id_estado = {$this->id_estado}, es_empleado = {$this->es_empleado} WHERE id = " . intval($this->id) );
     }
 
-    public static function getAll():DBPagination{
-        return Boleto::_getRows(Self::class);     
+    public static function getAll($atributes=[], $conditions="", $orderBy=""):DBPagination{
+        return Boleto::_getRows(Self::class, $atributes, $conditions, $orderBy);     
     }
     
     static public function getById($id): Boleto|null {
         $id = intval($id);
         return Self::transformRow(
-            Self::_fetchQuery("SELECT * FROM ".Self::getTablename()." WHERE id = {$id} ")
+            Self::_fetchQuery("SELECT * FROM ".Self::getTablename()." WHERE id = {$id} ", true)
         );
     }
 

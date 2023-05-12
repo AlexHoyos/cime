@@ -2,7 +2,7 @@
 
 namespace CIME\Models;
 
-use BoletoBD;
+use CIME\Models\DBModels\BoletoBD;
 
 class Boleto extends BoletoBD{
 

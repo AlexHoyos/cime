@@ -22,8 +22,11 @@ function updateSubtotal(){
 
     subtotal = subtotal.toFixed(2)
 
-    if(subtotal >= 0)
+    if(subtotal >= 0){
         $("#subtotal").text("$"+subtotal)
+        window.localStorage.setItem("subtotal", subtotal)
+    }
+       
 
 }
 
@@ -60,7 +63,7 @@ function selectAsiento(asiento){
     if(total_asientos){
         console.log("not null")
         total_asientos = parseInt(total_asientos)
-        var asientos_seleccionandos = window.localStorage.getItem("asientos").split(',')
+        var asientos_seleccionandos = window.localStorage.getItem("tmp_asientos").split(',')
         if(total_asientos > 0){
 
             var asientoID = asiento.getAttribute("data-asientoID")
@@ -89,11 +92,55 @@ function selectAsiento(asiento){
 
         }
 
-        window.localStorage.setItem("asientos", asientos_seleccionandos.join(','))
+        window.localStorage.setItem("tmp_asientos", asientos_seleccionandos.join(','))
 
     } else {
         console.log("null")
     }
 }
 
-window.onload = window.localStorage.setItem("asientos", "")
+function saveAsientos(){
+    var total_asientos = parseInt(window.localStorage.getItem("total_asientos"))
+    var asientos_seleccionandos = window.localStorage.getItem("tmp_asientos").split(',')
+    asientos_seleccionandos.splice(0, 1)
+    console.log(asientos_seleccionandos)
+
+    if(total_asientos == asientos_seleccionandos.length)
+    {
+        window.localStorage.setItem("asientos",  asientos_seleccionandos.join(',') )
+        insertParam("step", 4)
+    } else{
+        alert("No has seleccionado todos los asientos!")
+    }
+    
+}
+
+window.addEventListener("load", function(event){
+    var step = document.getElementById("step").value;
+
+    if(step==4){
+        var adultos = window.localStorage.getItem("adultos")
+        var adols = window.localStorage.getItem("adols")
+        var ninos = window.localStorage.getItem("ninos")
+        var asientos = window.localStorage.getItem("asientos")
+        var total_asientos = window.localStorage.getItem("total_asientos")
+        var subtotal = window.localStorage.getItem("subtotal")
+        var correo = window.localStorage.getItem("correo")
+
+        this.document.getElementById("total_asientos").innerText = total_asientos
+        this.document.getElementById("asientos_adultos").innerText = adultos
+        this.document.getElementById("asientos_adols").innerText = adols
+        this.document.getElementById("asientos_ninos").innerText = ninos
+        this.document.getElementById("subtotal").innerText = "$"+subtotal
+
+        this.document.getElementById("adultos").value = adultos
+        this.document.getElementById("adols").value = adols
+        this.document.getElementById("ninos").value = ninos
+        this.document.getElementById("asientos").value = asientos
+        this.document.getElementById("correo").value = correo
+
+    }
+
+})
+
+window.onload = window.localStorage.setItem("tmp_asientos", "")
