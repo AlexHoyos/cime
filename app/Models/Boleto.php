@@ -2,7 +2,7 @@
 
 namespace CIME\Models;
 
-use BoletoBD;
+use CIME\Models\DBModels\BoletoBD;
 
 class Boleto extends BoletoBD{
 
@@ -15,6 +15,10 @@ class Boleto extends BoletoBD{
     public function getCorreo() { return $this->correo; }
     public function getFuncion() { return $this->id_funcion; }
     public function isEmpleado() { return $this->es_empleado; }
+
+    public function getFuncionInstance(){
+        return Funcion::getById($this->getFuncion());
+    }
 
     public function setEstado($id_estado) { $this->id_estado = $id_estado; }
     public function setEsEmpleado($es_empleado) { $this->es_empleado = boolval($es_empleado); }
