@@ -13,7 +13,7 @@ include './app/Includes/header.php';
 
     <div class="d-flex flex-row mb-2 histboletos1 w-100">
         <div class="col-12 col-md-6 col-lg-4 div-img"
-            style="min-height: 90px;background-image: url(fimeno.jpg);margin-left: 10px;width: 120px">
+            style="min-height: 90px;background-image: url(<?=WEB_URL?>/app/Storage/fimeno.jpg);margin-left: 10px;width: 120px">
         </div>
         <div class="d-flex flex-column  aling-items-center justify-content pendientes1">
             <p class="p-0"> Pelicula:Pelicula A </p>
@@ -32,13 +32,13 @@ include './app/Includes/header.php';
             <p class="p-0">Niño: 1</p>
         </div>
         <div class="col-12 col-md-6 col-lg-4 div-img"
-            style="min-height: 120px;background-image: url(qrcode.png);margin-left: 400px;width: 150px;margin-top: 10px">
+            style="min-height: 120px;background-image: url(<?=WEB_URL?>/app/Storage/qrcode.png);margin-left: 400px;width: 150px;margin-top: 10px">
         </div>
     </div>
 
     <div class="d-flex flex-row histboletos2 w-100">
         <div class="col-12 col-md-6 col-lg-4 div-img"
-            style="min-height: 150px;background-image: url(fimeno.jpg);margin-left: 10px;width: 120px">
+            style="min-height: 150px;background-image: url(<?=WEB_URL?>/app/Storage/fimeno.jpg);margin-left: 10px;width: 120px">
         </div>
         <div class="d-flex flex-column  aling-items-center justify-content pendientes1">
             <p class="p-0"> Pelicula: Pelicula B </p>
@@ -55,7 +55,7 @@ include './app/Includes/header.php';
             <p class="p-0">Adulto: 2</p>
         </div>
         <div class="col-12 col-md-6 col-lg-4 div-img"
-            style="min-height: 120px;background-image: url(qrcode.png);margin-left: 470px;width: 150px;margin-top: 5px">
+            style="min-height: 120px;background-image: url(<?=WEB_URL?>/app/Storage/qrcode.png);margin-left: 470px;width: 150px;margin-top: 5px">
         </div>
     </div>
 
@@ -64,7 +64,7 @@ include './app/Includes/header.php';
     </div>
     <div class="d-flex flex-row histboletos3 w-100">
         <div class="col-12 col-md-6 col-lg-4 div-img"
-            style="min-height: 150px;background-image: url(fimeno.jpg);margin-left: 10px;width: 120px">
+            style="min-height: 150px;background-image: url(<?=WEB_URL?>/app/Storage/fimeno.jpg);margin-left: 10px;width: 120px">
         </div>
         <div class="d-flex flex-column  aling-items-center justify-content pendientes1">
             <p class="p-0"> Pelicula: Pelicula C </p>
@@ -81,7 +81,7 @@ include './app/Includes/header.php';
             <p class="p-0">Adulto: 2</p>
         </div>
         <div class="col-12 col-md-6 col-lg-4 div-img"
-            style="min-height: 120px;background-image: url(qrcode.png);margin-left: 470px;width: 150px;margin-top: 5px">
+            style="min-height: 120px;background-image: url(<?=WEB_URL?>/app/Storage/qrcode.png);margin-left: 470px;width: 150px;margin-top: 5px">
         </div>
     </div>
 
