@@ -312,16 +312,16 @@ input:checked form {
     
 }
 .pendientes1 {
-    margin-left: 150px;
-    margin-top: -100px;
+    margin-left: 50px;
+    margin-top: 10px;
 }
 
 .pendientes2 {
-    margin-left: 300px;
-    margin-top: -130px;
+    margin-left: 75px;
+    margin-top: 5px;
 }
 
 .pendientes3 {
-    margin-left: 450px;
-    margin-top: -130px;
+    margin-left: 100px;
+    margin-top: 5px;
 }
