@@ -311,3 +311,17 @@ input:checked form {
     padding: 5px 5px 5px 5px;
     
 }
+.pendientes1 {
+    margin-left: 150px;
+    margin-top: -100px;
+}
+
+.pendientes2 {
+    margin-left: 300px;
+    margin-top: -130px;
+}
+
+.pendientes3 {
+    margin-left: 450px;
+    margin-top: -130px;
+}
