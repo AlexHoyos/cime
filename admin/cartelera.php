@@ -37,7 +37,7 @@ $pelicula = Pelicula::getById($peli); ?>
             <h1><?=$pelicula->getTitulo()?></h1>
         </div>
         <div class="col-12">
-            <a href="cartelera.php" class="btn btn-primary py-4 w-100">Regresar</a>
+            <a href="cartelera.php" class="btn btn-dark py-4 w-100">Regresar</a>
         </div>
         <?php foreach($grupos as $grupoName => $funciones){ ?>
             <div class="col-12 d-flex flex-column">

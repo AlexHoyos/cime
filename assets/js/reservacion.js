@@ -16,11 +16,28 @@ function updateSubtotal(){
     let cant_adols = $("#cant_adols").val()
     let cant_ninos = $("#cant_ninos").val()
 
+    if(cant_adulto <= 0){
+        $("#cant_adultos").val(0)
+        cant_adulto = 0
+    }
+    
+    if(cant_adols <= 0){
+        $("#cant_adols").val(0)
+        cant_adols = 0
+    }
+
+    if(cant_ninos <= 0){
+        $("#cant_ninos").val(0)
+        cant_ninos = 0
+    }
+
     let subtotal = parseFloat(precio_adulto*cant_adulto)
     subtotal += parseFloat(precio_adol*cant_adols)
     subtotal += parseFloat(precio_nino*cant_ninos)
 
     subtotal = subtotal.toFixed(2)
+
+    
 
     if(subtotal >= 0){
         $("#subtotal").text("$"+subtotal)
