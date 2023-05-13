@@ -34,7 +34,7 @@ if (AccountRoleFilter::isUserAccount($userId)) {
     <title>Admin Panel</title>
 </head>
 
-<body class="d-flex flex-row">
+<body class="d-flex flex-row align-items-start">
     <header>
         <nav class="navbar navbar-expand-lg p-0" id="headerNav">
             <div class="container-fluid">
@@ -49,10 +49,10 @@ if (AccountRoleFilter::isUserAccount($userId)) {
                         <img class="LOGO" src="<?= WEB_URL ?>/app/Storage/LOGO.png">
                         <li class="menu">Empleado</li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="<?= WEB_URL ?>">Cartelera</a>
+                            <a class="nav-link active" aria-current="page" href="<?= WEB_URL ?>/admin/cartelera.php">Cartelera</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Escaner</a>
+                            <a class="nav-link active" aria-current="page" href="<?=WEB_URL?>/admin/escaner.php">Escaner</a>
                         </li>
                         <li class="menu">Reportes Personales</li>
                         <li class="nav-item">
