@@ -21,6 +21,10 @@ spl_autoload_register(function ($class_name) {
         include_once WEB_PATH . '/'.$route;
 });
 
+$timeZone = new DateTimeZone(WEB_TIMEZONE);
+
+$fechaHoy = (new DateTime('now', $timeZone));
+
 $_dbConn = new DatabaseConn(DB_ENGINE, DB_HOST, DB_PORT, DB_DBNAME, DB_USER, DB_PASSW);
 
 ADBModel::$dbConn = $_dbConn->getConnection();

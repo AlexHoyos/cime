@@ -6,7 +6,7 @@ use CIME\Models\Pelicula;
 include '../app/main.php';
 include '../app/Includes/Admin/Dashboard.php';
 
-$fecha = $fecha = date('Y-m-d');
+$fecha = $fechaHoy->format('Y-m-d');
 $peliculasEnCartelera = Pelicula::getPeliculasInCartelera($fecha);
 
 $peli = 0;

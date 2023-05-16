@@ -9,6 +9,11 @@ use CIME\Models\Usuario;
 
 include_once '../main.php';
 
+$adminURL = "";
+
+if(isset($_GET["admin"]))
+    $adminURL = "admin/";
+
 if(isset($_POST["asientos"], $_POST["adultos"], $_POST["adols"], $_POST["ninos"], $_GET["funcion_id"], $_POST["correo"])){
     
     $asientos = [];
@@ -55,7 +60,7 @@ if(isset($_POST["asientos"], $_POST["adultos"], $_POST["adols"], $_POST["ninos"]
                 }
 
                 if($ventaPermitida){
-
+                    
                    if($total_asientos > 0){
 
                         if($total_asientos == count($asientos)){
@@ -63,9 +68,19 @@ if(isset($_POST["asientos"], $_POST["adultos"], $_POST["adols"], $_POST["ninos"]
                             $userSession = SessionFilter::getUserBySession();
 
                             if(filter_var($correo, FILTER_VALIDATE_EMAIL) || $userSession instanceof Usuario){
+                                $isAdmin = false;
+
+                                if($userSession instanceof Usuario){
+                                    if(isset($_GET["admin"]) && $userSession->getRol()->getId() > 1){
+                                            $isAdmin = true;
+                                    }
+                                }
 
                                 $userId = ($userSession == null) ? "NULL" : $userSession->getId();
                                 $correo = ($userSession == null) ? $correo : $userSession->getCorreo();
+
+                                if($isAdmin)
+                                    $correo = $userSession->getNombre()."@local";
 
                                 $subtotal += floatval($adultos*$funcion->getPrecioAdulto());
                                 $subtotal += floatval($adols*$funcion->getPrecioAdol());
@@ -85,7 +100,7 @@ if(isset($_POST["asientos"], $_POST["adultos"], $_POST["adols"], $_POST["ninos"]
 
                                 if($asientosValidos){
                                     
-                                    $boleto = new Boleto(NULL, 5, $adultos, $adols, $ninos, $userId, $correo, $funcion_id, false);
+                                    $boleto = new Boleto(NULL, 5, $adultos, $adols, $ninos, $userId, $correo, $funcion_id, $isAdmin);
                                     
                                     if($boleto->create()){
                                         
@@ -103,70 +118,76 @@ if(isset($_POST["asientos"], $_POST["adultos"], $_POST["adols"], $_POST["ninos"]
 
                                             try {
 
-                                                $paypalResponse = $gateway->purchase([
-                                                    "amount" => $subtotal,
-                                                    "currency" => PAYPAL_CURRENCY,
-                                                    "returnUrl" => WEB_URL."/app/Controllers/AcompletarVenta.php?boleto_id=".$boletoID,
-                                                    "cancelUrl" => WEB_URL."/app/Controllers/CancelarVenta.php?boleto_id=".$boletoID
-                                                ])->send();
-        
-                                                if($paypalResponse->isRedirect()){
-        
-                                                    $paypalResponse->redirect();
-    
-        
-                                                } else {
+                                                $returnURL =WEB_URL."/app/Controllers/AcompletarVenta.php?boleto_id=".$boletoID;
 
-                                                    $boleto->getById($boletoID);
-                                                    if($boleto instanceof Boleto)
-                                                        $boleto->delete();
-                                                    header("Location: ". WEB_URL . "/reservar.php?funcion={$funcion_id}&step=4&error=Hubo un error al hacer el pago");
+                                                if($isAdmin == false){
+                                                    $paypalResponse = $gateway->purchase([
+                                                        "amount" => $subtotal,
+                                                        "currency" => PAYPAL_CURRENCY,
+                                                        "returnUrl" => $returnURL,
+                                                        "cancelUrl" => WEB_URL."/app/Controllers/CancelarVenta.php?boleto_id=".$boletoID
+                                                    ])->send();
+            
+                                                    if($paypalResponse->isRedirect()){
+            
+                                                        $paypalResponse->redirect();
+        
+            
+                                                    } else {
+
+                                                        $boleto->getById($boletoID);
+                                                        if($boleto instanceof Boleto)
+                                                            $boleto->delete();
+                                                        header("Location: ". WEB_URL . "/reservar.php?funcion={$funcion_id}&step=4&error=Hubo un error al hacer el pago");
+                                                    }
+                                                } else {
+                                                    header("Location: ".$returnURL."&admin=true");
                                                 }
         
                                             } catch(Exception $e){
-                                                header("Location: ". WEB_URL . "/reservar.php?funcion={$funcion_id}&step=2&error=".$e->getMessage());
+                                                header("Location: ". WEB_URL . "/{$adminURL}reservar.php?funcion={$funcion_id}&step=2&error=".$e->getMessage());
                                             }
 
                                         } else {
-                                            header("Location: ". WEB_URL . "/reservar.php?funcion={$funcion_id}&step=4&error=Hubo un error al crear el boleto!");
+                                            header("Location: ". WEB_URL . "/{$adminURL}reservar.php?funcion={$funcion_id}&step=4&error=Hubo un error al crear el boleto!");
                                         }
 
                                     } else {
-                                        header("Location: ". WEB_URL . "/reservar.php?funcion={$funcion_id}&step=4&error=Hubo un error al crear el boleto!");
+                                        header("Location: ". WEB_URL . "/{$adminURL}reservar.php?funcion={$funcion_id}&step=4&error=Hubo un error al crear el boleto!");
                                     }
 
                                 } else {
-                                    header("Location: ". WEB_URL . "/reservar.php?funcion={$funcion_id}&step=3&error=Algunos asientos seleccionados estan ocupados!");
+                                    header("Location: ". WEB_URL . "/{$adminURL}reservar.php?funcion={$funcion_id}&step=3&error=Algunos asientos seleccionados estan ocupados!");
                                 }
 
                             } else {
-                                header("Location: ". WEB_URL . "/reservar.php?funcion={$funcion_id}&step=1&error=Correo invalido!");
+                                header("Location: ". WEB_URL . "/{$adminURL}reservar.php?funcion={$funcion_id}&step=1&error=Correo invalido!");
                             }
 
                         } else {
-                            header("Location: ". WEB_URL . "/reservar.php?funcion={$funcion_id}&step=2&error=El total de personas no coincide con el total de asientos!");
+                            header("Location: ". WEB_URL . "/{$adminURL}reservar.php?funcion={$funcion_id}&step=2&error=El total de personas no coincide con el total de asientos!");
                         }
 
                    } else {
-                        header("Location: ". WEB_URL . "/reservar.php?funcion={$funcion_id}&step=2&error=Debe seleccionar al menos un asiento!");
+                        header("Location: ". WEB_URL . "/{$adminURL}reservar.php?funcion={$funcion_id}&step=2&error=Debe seleccionar al menos un asiento!");
                    }
 
                 } else {
-                    header("Location: ". WEB_URL . "/reservar.php?funcion={$funcion_id}&step=2&error=No se puede hacer la venta por la restriccion de la clasificacion!");
+                    header("Location: ". WEB_URL . "/{$adminURL}reservar.php?funcion={$funcion_id}&step=2&error=No se puede hacer la venta por la restriccion de la clasificacion!");
                 }
 
             } else {
-                header("Location: ". WEB_URL . "/reservar.php?funcion={$funcion_id}&step=2&error=Al menos un adulto debe estar acompañando!");
+                header("Location: ". WEB_URL . "/{$adminURL}reservar.php?funcion={$funcion_id}&step=2&error=Al menos un adulto debe estar acompañando!");
             }
 
         } else {
-            header("Location: ". WEB_URL . "/reservar.php?funcion={$funcion_id}&step=2&error=No se encontró la función");
+            header("Location: ". WEB_URL . "/{$adminURL}reservar.php?funcion={$funcion_id}&step=2&error=No se encontró la función");
         }
 
     } else {
-        header("Location: ". WEB_URL . "/reservar.php?funcion={$funcion_id}&step=2&error=No se han seleccionado asientos");
+        header("Location: ". WEB_URL . "/{$adminURL}reservar.php?funcion={$funcion_id}&step=2&error=No se han seleccionado asientos");
     }
 
 } else {
-    header("Location: ". WEB_URL . "/?error=No se recibieron todos los parametros esperados");
+    header("Location: ". WEB_URL . "/{$adminURL}reservar.php?error=No se recibieron todos los parametros esperados");
 }

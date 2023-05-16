@@ -17,10 +17,11 @@ class SessionFilter {
         $doRedirect = false;
 
         if( isset($_SESSION["uid"]) ) {
-            
-            if(empty($_SESSION["uid"])){
+            $userId = intval($_SESSION["uid"]);
+            $usuario = Usuario::getById($userId);
+
+            if( $usuario == null )
                 $doRedirect = true;
-            }
 
         } else {
             $doRedirect = true;
@@ -45,7 +46,10 @@ class SessionFilter {
 
         if( isset($_SESSION["uid"]) ){
 
-            if( empty($_SESSION["uid"]) == false )
+            $userId = intval($_SESSION["uid"]);
+            $usuario = Usuario::getById($userId);
+
+            if( $usuario instanceof Usuario )
                 $doRedirect = true;
 
         }
