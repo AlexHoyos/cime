@@ -16,6 +16,13 @@ if (AccountRoleFilter::isUserAccount($userId)) {
     header("Location: ". WEB_URL);
    
 }
+
+$admin = SessionFilter::getUserBySession();
+
+if($admin == null){
+    header("Location: ". WEB_URL);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,7 +63,7 @@ if (AccountRoleFilter::isUserAccount($userId)) {
                         </li>
                         <li class="menu">Reportes Personales</li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Reportes ventas</a>
+                            <a class="nav-link" href="<?=WEB_URL?>/admin/ventasEmp.php">Reportes ventas</a>
                         </li>
                         <?php
                             if( AccountRoleFilter::isAdminAccount($userId) ) {
@@ -85,10 +92,10 @@ if (AccountRoleFilter::isUserAccount($userId)) {
                         </li>
                         <li class="menu">Reporte General</li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Reporte general ventas</a>
+                            <a class="nav-link" href="<?=WEB_URL?>/admin/ventasAdm.php">Reporte general ventas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Estadisticas</a>
+                            <a class="nav-link" href="<?=WEB_URL?>/admin/estadisticas.php">Estadisticas</a>
                         </li>
                         <?php } ?>
                         <li class="menu">Opciones</li>

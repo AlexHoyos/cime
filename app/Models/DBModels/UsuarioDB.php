@@ -4,6 +4,8 @@ namespace CIME\Models\DBModels;
 
 use CIME\Database\ADBModel;
 use CIME\Database\DBPagination;
+use CIME\Models\Boleto;
+use CIME\Models\Funcion;
 use CIME\Models\Usuario;
 
 class UsuarioDB extends ADBModel {
@@ -49,6 +51,45 @@ class UsuarioDB extends ADBModel {
         return Self::_executeQuery("UPDATE ". Self::getTablename() . " SET nombre = '{$this->nombre}', apellido = '{$this->apellido}', password = '{$this->password}', id_rol = {$this->id_rol}, secure_code = {$this->secure_code} WHERE id = " . intval($this->id) );
     }
 
+
+    /**
+     * Obtener el resumen de las ventas de un usuario en una fecha determinada
+     *  Regresa nulo si no se encuentran ventas o un objeto si las encuentra
+     * El objeto contiene los siguientes atributos
+     * * adultos
+     * * subtotal_adultos
+     * * adols
+     * * subtotal_adols
+     * * ninos
+     * * subtotal_ninos
+     * @param string $fecha
+     * @return object|null
+     */
+    public function getResumenVentas($fecha):object|null{
+        $usuarioTn = Self::getTablename();
+        $boletoTn = Boleto::getTablename();
+        $funcionTn = Funcion::getTablename();
+        $query = "SELECT SUM(num_adultos) AS adultos, SUM(total_adultos) AS subtotal_adultos, SUM(num_adols) AS adols, SUM(total_adols) AS subtotal_adols, SUM(num_ninos) AS ninos, SUM(total_ninos) AS subtotal_ninos FROM
+        (SELECT (precio_adulto*num_adultos) AS total_adultos, (precio_adol*num_adols) AS total_adols, (precio_nino*num_ninos) AS total_ninos , num_adultos, num_adols, num_ninos FROM {$boletoTn}, {$usuarioTn}, {$funcionTn} 
+            WHERE {$boletoTn}.id_usuario = {$usuarioTn}.id AND {$funcionTn}.id = {$boletoTn}.id_funcion AND es_empleado = 1 AND {$boletoTn}.id_usuario = {$this->id} AND {$boletoTn}.created_at = '{$fecha}') precios;";
+        return Self::_fetchQuery($query, true);
+    }
+
+    /**
+     * Obtener ventas de un usuario
+     *  Regresa un arreglo de boletos vendidos en la fecha dada
+     * Si el arreglo esta vacio, es que no se realizaron ventas
+     * @param string $fecha
+     * @return array
+     */
+    public function getVentas($fecha):array{
+        $usuarioTn = Self::getTablename();
+        $boletoTn = Boleto::getTablename();
+        $query = "SELECT {$boletoTn}.* FROM {$boletoTn}, {$usuarioTn}
+            WHERE {$boletoTn}.id_usuario = {$usuarioTn}.id AND es_empleado = 1 AND {$boletoTn}.id_usuario = {$this->id} AND {$boletoTn}.created_at = '{$fecha}'";
+        return Boleto::transformRows( Self::_fetchQuery($query) );
+    }
+
     static public function getAll():DBPagination{
         return Usuario::_getRows(Self::class);     
     }
@@ -65,5 +106,6 @@ class UsuarioDB extends ADBModel {
             Self::_fetchQuery("SELECT * FROM ".Self::getTablename()." WHERE correo = '{$email}' ", true)
         );
     }
+
 
 }

@@ -15,6 +15,7 @@ class Boleto extends BoletoBD{
     public function getCorreo() { return $this->correo; }
     public function getFuncion() { return $this->id_funcion; }
     public function isEmpleado() { return $this->es_empleado; }
+    public function getCreatedAt(){ return $this->created_at; }
 
     public function getFuncionInstance(){
         return Funcion::getById($this->getFuncion());
