@@ -42,7 +42,7 @@ use CIME\Models\Pelicula;
             <a href="cartelera.php" class="btn btn-link">Borrar filtros</a>
             <div class="fecha d-flex flex-column">
                 <b>Seleccione una fecha</b>
-                <input type="date" name="" id="" class="form-control" value="<?=$fecha?>" onchange="insertParam('fecha', this.value)">
+                <input type="date" name="" id="" min="<?=$fechaHoy->format('Y-m-d')?>" class="form-control" value="<?=$fecha?>" onchange="insertParam('fecha', this.value)">
             </div>
 
             <div class="formato d-flex flex-column">
