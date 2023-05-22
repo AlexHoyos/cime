@@ -9,8 +9,6 @@ use CIME\Models\Usuario;
 
 include_once '../main.php';
 
-$adminURL = "";
-
 if(isset($_GET["admin"]))
     $adminURL = "admin/";
 
@@ -60,7 +58,7 @@ if(isset($_POST["asientos"], $_POST["adultos"], $_POST["adols"], $_POST["ninos"]
                 }
 
                 if($ventaPermitida){
-                    
+
                    if($total_asientos > 0){
 
                         if($total_asientos == count($asientos)){
@@ -68,6 +66,7 @@ if(isset($_POST["asientos"], $_POST["adultos"], $_POST["adols"], $_POST["ninos"]
                             $userSession = SessionFilter::getUserBySession();
 
                             if(filter_var($correo, FILTER_VALIDATE_EMAIL) || $userSession instanceof Usuario){
+
                                 $isAdmin = false;
 
                                 if($userSession instanceof Usuario){
@@ -190,4 +189,5 @@ if(isset($_POST["asientos"], $_POST["adultos"], $_POST["adols"], $_POST["ninos"]
 
 } else {
     header("Location: ". WEB_URL . "/{$adminURL}reservar.php?error=No se recibieron todos los parametros esperados");
+
 }

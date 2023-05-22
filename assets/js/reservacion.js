@@ -37,8 +37,6 @@ function updateSubtotal(){
 
     subtotal = subtotal.toFixed(2)
 
-    
-
     if(subtotal >= 0){
         $("#subtotal").text("$"+subtotal)
         window.localStorage.setItem("subtotal", subtotal)
