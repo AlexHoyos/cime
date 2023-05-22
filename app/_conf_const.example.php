@@ -10,6 +10,8 @@ const PRODUCTION = false;
 
 const WEB_URL = "http://localhost";
 const WEB_PATH = __DIR__;
+const WEB_TIMEZONE = "America/Monterrey";
+
 /*
     DATABASE CONSTANTS
 */

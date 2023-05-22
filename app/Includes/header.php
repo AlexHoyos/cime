@@ -4,6 +4,7 @@ use CIME\Models\Usuario;
 
     $userName = "";
     $userId = 0;
+    $usuario = null;
     if(isset($_SESSION["userName"])){
 
         if(!empty($_SESSION["userName"]))
@@ -80,7 +81,7 @@ use CIME\Models\Usuario;
                 </ul>
             <?php
 
-            if($userId == 0){ ?>
+            if($usuario == null){ ?>
                 <ul class="navbar-nav ms-md-auto">
                     <li class="nav-item">
                         <a class="nav-link align-self-right" href="<?=WEB_URL?>/login.php">Iniciar Sesión</a>
