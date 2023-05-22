@@ -87,6 +87,7 @@ include '../app/Includes/Admin/Dashboard.php';
         // Iniciar el escaneo al cargar la página
         window.onload = iniciarEscaneo;
     </script>
+</html>
     <?php
     include '../app/Includes/Admin/Footer.php';
     ?>
