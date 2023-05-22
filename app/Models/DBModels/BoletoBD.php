@@ -113,14 +113,14 @@ class BoletoBD extends ADBModel {
         $boletoTn = Self::getTablename();
         $funcionTn = Funcion::getTablename();
         $peliculaTn = Pelicula::getTablename();
-        $query = "SELECT {$peliculaTn}.titulo, SUM((num_adultos+num_adols+num_ninos)) AS visitas, SUM(num_adultos) as adultos, SUM(num_adols) as adols, SUM(num_ninos) as ninos FROM {$boletoTn}, {$funcionTn}, {$peliculaTn} WHERE {$boletoTn}.id_funcion = {$funcionTn}.id AND {$funcionTn}.id_pelicula = {$peliculaTn}.id AND {$boletoTn}.id_estado = 3 AND created_at BETWEEN '{$fechaInicio}' AND '{$fechaFin}' GROUP BY {$peliculaTn}.id;";
+        $query = "SELECT {$peliculaTn}.titulo, SUM((num_adultos+num_adols+num_ninos)) AS visitas, SUM(num_adultos) as adultos, SUM(num_adols) as adols, SUM(num_ninos) as ninos FROM {$boletoTn}, {$funcionTn}, {$peliculaTn} WHERE {$boletoTn}.id_funcion = {$funcionTn}.id AND {$funcionTn}.id_pelicula = {$peliculaTn}.id AND {$boletoTn}.id_estado = 3 AND {$funcionTn}.fecha BETWEEN '{$fechaInicio}' AND '{$fechaFin}' GROUP BY titulo;";
         return Self::_fetchQuery($query);
     }
 
     static public function getTiposVentaStats($fechaInicio, $fechaFin){
         $boletoTn = Self::getTablename();
         $query = "SELECT COUNT(*) AS total, SUM(if(id_estado=3, 1, 0)) AS usados, SUM(if(id_estado!=3, 1, 0)) AS no_usados  FROM {$boletoTn} WHERE created_at BETWEEN '{$fechaInicio}' AND '{$fechaFin}';";
-        return Self::_fetchQuery($query);
+        return Self::_fetchQuery($query, true);
     }
 
 }

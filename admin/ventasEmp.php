@@ -62,7 +62,7 @@ $subtotal = floatval($resumenVentas->subtotal_adultos+$resumenVentas->subtotal_a
                         <th scope="row"><?=$boletoVendido->getId()?></th>
                         <td><?=$funcion->getPelicula()->getTitulo()?></td>
                         <td>$<?=number_format($total,2)?></td>
-                        <td>@mdo</td>
+                        <td> <a href="boleto.php?id=<?=$boletoVendido->getId()?>" class="btn btn-success">Ver</a> </td>
                     </tr>
                     <?php } ?>
                 </tbody>

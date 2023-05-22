@@ -65,13 +65,17 @@ class UsuarioDB extends ADBModel {
      * @param string $fecha
      * @return object|null
      */
-    public function getResumenVentas($fecha):object|null{
+    public function getResumenVentas($fecha, $all = false):object|null{
         $usuarioTn = Self::getTablename();
         $boletoTn = Boleto::getTablename();
         $funcionTn = Funcion::getTablename();
+        $usuario = "";
+        if($all == false){
+            $usuario = "AND {$boletoTn}.id_usuario = {$this->id}";
+        }
         $query = "SELECT SUM(num_adultos) AS adultos, SUM(total_adultos) AS subtotal_adultos, SUM(num_adols) AS adols, SUM(total_adols) AS subtotal_adols, SUM(num_ninos) AS ninos, SUM(total_ninos) AS subtotal_ninos FROM
         (SELECT (precio_adulto*num_adultos) AS total_adultos, (precio_adol*num_adols) AS total_adols, (precio_nino*num_ninos) AS total_ninos , num_adultos, num_adols, num_ninos FROM {$boletoTn}, {$usuarioTn}, {$funcionTn} 
-            WHERE {$boletoTn}.id_usuario = {$usuarioTn}.id AND {$funcionTn}.id = {$boletoTn}.id_funcion AND es_empleado = 1 AND {$boletoTn}.id_usuario = {$this->id} AND {$boletoTn}.created_at = '{$fecha}') precios;";
+            WHERE {$boletoTn}.id_usuario = {$usuarioTn}.id AND {$funcionTn}.id = {$boletoTn}.id_funcion AND es_empleado = 1 {$usuario} AND {$boletoTn}.created_at = '{$fecha}') precios;";
         return Self::_fetchQuery($query, true);
     }
 
@@ -82,11 +86,15 @@ class UsuarioDB extends ADBModel {
      * @param string $fecha
      * @return array
      */
-    public function getVentas($fecha):array{
+    public function getVentas($fecha, $all = false):array{
         $usuarioTn = Self::getTablename();
         $boletoTn = Boleto::getTablename();
+        $usuario = "";
+        if($all == false){
+            $usuario = "AND {$boletoTn}.id_usuario = {$this->id}";
+        }
         $query = "SELECT {$boletoTn}.* FROM {$boletoTn}, {$usuarioTn}
-            WHERE {$boletoTn}.id_usuario = {$usuarioTn}.id AND es_empleado = 1 AND {$boletoTn}.id_usuario = {$this->id} AND {$boletoTn}.created_at = '{$fecha}'";
+            WHERE {$boletoTn}.id_usuario = {$usuarioTn}.id AND es_empleado = 1 {$usuario} AND {$boletoTn}.created_at = '{$fecha}'";
         return Boleto::transformRows( Self::_fetchQuery($query) );
     }
 
