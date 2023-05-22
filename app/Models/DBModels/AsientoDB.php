@@ -49,8 +49,10 @@ class AsientoDB extends ADBModel {
     static public function getById($id): Asiento|null {
         $id = intval($id);
         return Self::transformRow(
-            Self::_fetchQuery("SELECT * FROM ".Self::getTablename()." WHERE id = {$id} ")
+            Self::_fetchQuery("SELECT * FROM ".Self::getTablename()." WHERE id = {$id} ", true)
         );
     }
+
+    
 
 }

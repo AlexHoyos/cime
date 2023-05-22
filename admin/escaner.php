@@ -1,6 +1,4 @@
 <?php
-use CIME\Filters\AccountRoleFilter;
-use CIME\Filters\SessionFilter;
 
 include '../app/main.php';
 include '../app/Includes/Admin/Dashboard.php';
@@ -90,3 +88,9 @@ include '../app/Includes/Admin/Dashboard.php';
         window.onload = iniciarEscaneo;
     </script>
 </html>
+    <?php
+    include '../app/Includes/Admin/Footer.php';
+    ?>
+    </body>
+</html>
+
