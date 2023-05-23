@@ -325,3 +325,12 @@ input:checked form {
     margin-left: 100px;
     margin-top: 5px;
 }
+.boletos-item {
+    display: flex;
+    flex-direction: flex-row;
+    font-size: 30px;
+    margin:10px;
+}
+.boletos-item i {
+    font-size: 50px;
+}

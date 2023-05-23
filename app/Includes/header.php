@@ -92,18 +92,18 @@ use CIME\Models\Usuario;
                 </ul>
             <?php } else { ?>
                 <ul class="navbar-nav ms-md-auto">
-                    <?php
-                    if($usuario->getRol()->getNombre() != "usr"){
-                    ?>
+
+                    <?php if($usuario->getRol()->getNombre() != "usr"){ ?>
                     <li class="nav-item">
                         <a class="nav-link" href="<?=WEB_URL?>/admin">Dashboard</a>
                     </li>
                     <?php } ?>
+
                     <li class="nav-item">
                         <a class="nav-link align-self-right" href="/config.php"><?=$userName?></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?=WEB_URL?>/boletos.php">Boletos</a>
+                        <a class="nav-link" href="<?=WEB_URL?>/historialboleto.php">Boletos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<?=WEB_URL?>/logout.php">Cerrar Sesión</a>

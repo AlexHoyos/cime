@@ -123,4 +123,10 @@ class BoletoBD extends ADBModel {
         return Self::_fetchQuery($query, true);
     }
 
+    static public function getBoletosByUserId($userID){
+        return Self::transformRows(
+            Boleto::getAll([], "id_usuario = {$userID} AND es_empleado = 0 AND id_estado != 5", "ORDER BY created_at")->showAll()
+        );
+    }
+
 }
