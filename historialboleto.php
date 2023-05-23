@@ -59,7 +59,15 @@ if($user instanceof Usuario){
             style="height: 100px;background-image: url(<?=WEB_URL?>/app/Storage/qrcode.png);width: 95px; cursor:pointer;">
         </div>
     </div>
-    <?php unset($boletos[$key]); } } ?>
+    <?php
+        unset($boletos[$key]);
+        } else {
+            if($boleto->getEstado() == 1){
+                $boleto->setEstado(4);
+                $boleto->update();
+            }
+        }
+    } ?>
 
     <div id="pageTitle">
         <h3>Pasados</h3>
