@@ -99,7 +99,11 @@ if(isset($_POST["asientos"], $_POST["adultos"], $_POST["adols"], $_POST["ninos"]
 
                                 if($asientosValidos){
                                     
-                                    $boleto = new Boleto(NULL, 5, $adultos, $adols, $ninos, $userId, $correo, $funcion_id, $isAdmin);
+                                    $estado = 5;
+                                    if($isAdmin)
+                                        $estado = 1;
+
+                                    $boleto = new Boleto(NULL, $estado, $adultos, $adols, $ninos, $userId, $correo, $funcion_id, $isAdmin, NULL);
                                     
                                     if($boleto->create()){
                                         
