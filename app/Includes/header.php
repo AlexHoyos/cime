@@ -66,10 +66,10 @@ use CIME\Models\Usuario;
                 <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="<?=WEB_URL?>/cartelera.php">Cartelera</a>
+                        <a class="nav-link" href="<?=WEB_URL?>/index.php">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?=WEB_URL?>/proximamente.php">Proximamente</a>
+                        <a class="nav-link active" aria-current="page" href="<?=WEB_URL?>/cartelera.php">Cartelera</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<?=WEB_URL.'/nosotros.php'?>">Sobre Nosotros</a>
