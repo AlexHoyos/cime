@@ -82,13 +82,7 @@ if($admin == null){
                             <a class="nav-link" href="<?= WEB_URL . '/admin/Funciones.php' ?>">Funciones</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= WEB_URL . '/admin/Boletos.php' ?>">Boletos</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="<?= WEB_URL . '/admin/Usuarios.php' ?>">Usuarios</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?= WEB_URL . '/admin/Empleados.php' ?>">Empleados</a>
                         </li>
                         <li class="menu">Reporte General</li>
                         <li class="nav-item">
