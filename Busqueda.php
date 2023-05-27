@@ -35,16 +35,17 @@ if($busqueda != ""){
         <div class="col-12 d-flex flex-row">
             <div class="d-flex flex-column">
                 <div class="col-12 col-md-6 col-lg-4 div-img m-1"
-                    style="min-height: 350px;background-image: url(/app/Storage/peliculas/<?=$pelicula->getPortada()?>);width: 250px;margin-left: 20px;cursor:pointer;">
+                    style="min-height: 350px;background-image: url(/app/Storage/peliculas/<?=$pelicula->getPortada()?>);width: 250px;margin-left: 20px;cursor:pointer;"
+                    onclick="window.location.href='<?=WEB_URL?>/pelicula.php?id=<?=$pelicula->getId()?>'">
                 </div>
                 <div>
-                    <div class="login-icon" style="font-size:18px">
+                    <!--<div class="login-icon" style="font-size:18px">
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                         <i class="fa-regular fa-star"></i>
-                    </div>
+                    </div>-->
                 </div>
             </div>
 
