@@ -62,7 +62,7 @@ use CIME\Models\Usuario;
 
 ?>
 
-<section class="row m-0 p-0 w-100" id="aboutUs">
+<section class="row m-0 p-0 w-100" id="boleto">
     <div class="col-11" id="pageTitle">
         <h1>Boleto</h1>
     </div>
@@ -115,7 +115,10 @@ use CIME\Models\Usuario;
 
             <div class="col-12 col-md-4">
                 <div class="row justify-content-end">
-                    <div class="col-lg-6 text-right">
+                    <div class="col-12 d-flex justify-content-end mx-3">
+                        <button class="btn btn-secondary" onclick="imprimirElemento( document.getElementById('boleto') )">Imprimir</button>
+                    </div>
+                    <div class="col-lg-6 text-center">
                         <img src="<?=$qrcode?>" alt="Código QR" class="img-fluid mb-3">
                         <p class="codigo-texto">Código: <?=$boleto->getId()?></p>
                     </div>
