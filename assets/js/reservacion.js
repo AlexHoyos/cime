@@ -133,6 +133,10 @@ function saveAsientos(){
 window.addEventListener("load", function(event){
     var step = document.getElementById("step").value;
 
+    if(step==2){
+        updateSubtotal();
+    }
+
     if(step==4){
         var adultos = window.localStorage.getItem("adultos")
         var adols = window.localStorage.getItem("adols")
