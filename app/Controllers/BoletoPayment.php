@@ -9,6 +9,7 @@ use CIME\Models\Usuario;
 
 include_once '../main.php';
 
+$adminURL = "";
 if(isset($_GET["admin"]))
     $adminURL = "admin/";
 
@@ -108,7 +109,7 @@ if(isset($_POST["asientos"], $_POST["adultos"], $_POST["adols"], $_POST["ninos"]
                                     if($boleto->create()){
                                         
                                         $boletoID = 0;
-                                        $boletosPage = Boleto::getAll([], "id_funcion = {$funcion_id} AND correo = '{$correo}' AND id_usuario = {$userId}", "ORDER BY id DESC")->page(1);
+                                        $boletosPage = Boleto::getAll([], "id_funcion = {$funcion_id} AND ( correo = '{$correo}' OR id_usuario = {$userId} )", "ORDER BY id DESC")->page(1);
                                         if(isset($boletosPage[0]))
                                             $boletoID = $boletosPage[0]["id"];
 
@@ -152,7 +153,9 @@ if(isset($_POST["asientos"], $_POST["adultos"], $_POST["adols"], $_POST["ninos"]
                                             }
 
                                         } else {
-                                            header("Location: ". WEB_URL . "/{$adminURL}reservar.php?funcion={$funcion_id}&step=4&error=Hubo un error al crear el boleto!");
+                                            var_dump($boleto->create());
+                                            var_dump($boletoID);
+                                            //header("Location: ". WEB_URL . "/{$adminURL}reservar.php?funcion={$funcion_id}&step=4&error=Hubo un error al crear el boleto!");
                                         }
 
                                     } else {
