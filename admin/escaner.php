@@ -54,9 +54,20 @@ include '../app/Includes/Admin/Dashboard.php';
     function leerCodigoManual() {
         var codigoManual = document.getElementById("codigoManual").value;
         if (codigoManual !== "") {
-            alert("Código ingresado manualmente: " + codigoManual);
+            //alert("Código ingresado manualmente: " + codigoManual);
+            readBoleto(codigoManual)
         }
     }
+
+    function readBoleto(rawCode){
+        var code = parseInt(rawCode)
+        if(code > 0){
+            window.location.href = "<?=WEB_URL?>/admin/boleto.php?id="+code+"&escaner=true"
+        } else {
+            alert("No se ha escaneado un codigo de boleto")
+        }
+    }
+
     </script>
 
     <script type="module">
@@ -66,7 +77,8 @@ include '../app/Includes/Admin/Dashboard.php';
             document.getElementById("camaraContainer"), 
             function(result){
                 //document.getElementById("scanresult").value = result;
-                alert(result)
+                readBoleto(result)
+                //alert(result)
             } 
         );
        

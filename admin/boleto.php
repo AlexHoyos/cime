@@ -34,9 +34,14 @@ use CIME\Models\Usuario;
         $pelicula = $funcion->getPelicula();
 
         $fecha_funcion = date('Y-m-d', strtotime($funcion->getFecha()));
-        if($fecha_funcion < $fechaHoy->format('Y-m-d')){
-            if($boleto->getEstado() == 1){
+        if($boleto->getEstado() == 1){
+            if($fecha_funcion < $fechaHoy->format('Y-m-d')){
+                // Lo establecemos como caduco
                 $boleto->setEstado(4);
+                $boleto->update();
+            } else if($fecha_funcion == $fechaHoy->format('Y-m-d') && isset($_GET["escaner"])){
+
+                $boleto->setEstado(3);
                 $boleto->update();
             }
         }
@@ -122,9 +127,11 @@ use CIME\Models\Usuario;
             <div class="col-12 text-center">
                 <p class="disfrute-mensaje">
                     <?php
-                        if($boleto->getEstado() == 1){
+                        if($boleto->getEstado() == 1 && $fecha_funcion == $fechaHoy->format('Y-m-d')){
                     ?>
                     <h1> <span class="badge bg-success text-light">BOLETO ACEPTABLE</span> <h1>
+                    <?php } else if($boleto->getEstado() == 1){ ?>
+                        <h1> <span class="badge bg-warning text-light">BOLETO DE OTRO DÍA</span> <h1>
                     <?php } else if($boleto->getEstado() == 2){ ?>
                     <h1> <span class="badge bg-danger text-light">BOLETO CANCELADO</span> <h1>
                     <?php } else if($boleto->getEstado() == 3) { ?>
