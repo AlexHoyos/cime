@@ -4,6 +4,7 @@ namespace CIME\Models\DBModels;
 
 use CIME\Database\ADBModel;
 use CIME\Database\DBPagination;
+use CIME\Models\Funcion;
 use CIME\Models\Pelicula;
 
 class PeliculaDB extends ADBModel {
@@ -44,6 +45,13 @@ class PeliculaDB extends ADBModel {
     }
     public function update():bool{
         return Self::_executeQuery("UPDATE ". Self::getTablename() . " SET titulo = '{$this->titulo}', anio = {$this->anio}, sinopsis = '{$this->sinopsis}', portada = '{$this->portada}', wallpaper = '{$this->wallpaper}', duracion = {$this->duracion}, id_clasificacion = {$this->id_clasificacion} WHERE id = " . intval($this->id) );
+    }
+
+    public function getProxFunciones(){
+        $funcionesTn = Funcion::getTablename();
+        $peliculasTn = Pelicula::getTablename();
+        $peliId = $this->id;
+        return Self::_fetchQuery("SELECT fecha FROM {$funcionesTn}, {$peliculasTn} WHERE {$funcionesTn}.id_pelicula = {$peliculasTn}.id AND {$peliculasTn}.id={$peliId} AND fecha >= CURDATE() GROUP BY fecha ORDER BY fecha ASC LIMIT 15;");
     }
 
     public static function getAll($atributes = [], $conditions = "", $orderBy = ""):DBPagination{
