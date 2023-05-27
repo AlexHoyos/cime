@@ -14,7 +14,7 @@ $ventas = $admin->getVentas($date);
 $subtotal = floatval($resumenVentas->subtotal_adultos+$resumenVentas->subtotal_adols+$resumenVentas->subtotal_ninos);
 ?>
 
-    <div class="d-flex flex-column w-100 p-4">
+    <div class="d-flex flex-column w-100 p-4" id="reporte_ventas">
 
         <div class="d-flex flex-row w-100 justify-content-center">
             <h2 class="super-title">Reporte ventas</h2>
@@ -30,7 +30,7 @@ $subtotal = floatval($resumenVentas->subtotal_adultos+$resumenVentas->subtotal_a
                 <p> Niños - <?=$resumenVentas->ninos?> - $<?=number_format($resumenVentas->subtotal_ninos, 2)?> </p>
             </div>
             <div class="d-flex flex-column">
-                <button class="btn btn-secondary">Imprimir</button>
+                <button class="btn btn-secondary" onclick="imprimirElemento( document.getElementById('reporte_ventas') )">Imprimir</button>
                 <h3>
                     <b>Total en caja</b>
                     <p>$<?=number_format($subtotal, 2)?></p>
