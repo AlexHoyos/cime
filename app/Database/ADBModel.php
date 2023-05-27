@@ -72,6 +72,7 @@ abstract class ADBModel {
         $transformedRows = [];
 
         foreach($rows as $row){
+            $row = (object) $row;
             $transformedRows[] = $class::transformRow($row);
         }
 

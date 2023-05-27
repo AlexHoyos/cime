@@ -157,7 +157,7 @@ input:checked form {
     width: 50px;
     height: 90px;
     border-color: var(--gris-oscuro);
-    background-image: url(fimeño.jpg);
+    background-image: url(fimeno.jpg);
 }
 
 #nompeli {
@@ -210,7 +210,7 @@ input:checked form {
     height: 300px;
     margin-left: 10px;
     border-color: var(--gris-oscuro);
-    background-image: url(fimeño.jpg);
+    background-image: url(fimeno.jpg);
 }
 
 #nompeli {
@@ -301,4 +301,36 @@ input:checked form {
     width: 100%;
     left: 0;
     right: 0;
+}
+
+.histboletos1,.histboletos2,.histboletos3{
+    border-style: solid;
+    border-color: var(--gris-oscuro);
+    margin-left: 5px;
+    margin-bottom: 20px;
+    padding: 5px 5px 5px 5px;
+    
+}
+.pendientes1 {
+    margin-left: 50px;
+    margin-top: 10px;
+}
+
+.pendientes2 {
+    margin-left: 75px;
+    margin-top: 5px;
+}
+
+.pendientes3 {
+    margin-left: 100px;
+    margin-top: 5px;
+}
+.boletos-item {
+    display: flex;
+    flex-direction: flex-row;
+    font-size: 30px;
+    margin:10px;
+}
+.boletos-item i {
+    font-size: 50px;
 }

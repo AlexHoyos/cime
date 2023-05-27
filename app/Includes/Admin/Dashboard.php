@@ -16,6 +16,13 @@ if (AccountRoleFilter::isUserAccount($userId)) {
     header("Location: ". WEB_URL);
    
 }
+
+$admin = SessionFilter::getUserBySession();
+
+if($admin == null){
+    header("Location: ". WEB_URL);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,7 +41,7 @@ if (AccountRoleFilter::isUserAccount($userId)) {
     <title>Admin Panel</title>
 </head>
 
-<body class="d-flex flex-row">
+<body class="d-flex flex-row align-items-start">
     <header>
         <nav class="navbar navbar-expand-lg p-0" id="headerNav">
             <div class="container-fluid">
@@ -49,14 +56,14 @@ if (AccountRoleFilter::isUserAccount($userId)) {
                         <img class="LOGO" src="<?= WEB_URL ?>/app/Storage/LOGO.png">
                         <li class="menu">Empleado</li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="<?= WEB_URL ?>">Cartelera</a>
+                            <a class="nav-link active" aria-current="page" href="<?= WEB_URL ?>/admin/cartelera.php">Cartelera</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Escaner</a>
+                            <a class="nav-link active" aria-current="page" href="<?=WEB_URL?>/admin/escaner.php">Escaner</a>
                         </li>
                         <li class="menu">Reportes Personales</li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Reportes ventas</a>
+                            <a class="nav-link" href="<?=WEB_URL?>/admin/ventasEmp.php">Reportes ventas</a>
                         </li>
                         <?php
                             if( AccountRoleFilter::isAdminAccount($userId) ) {
@@ -75,20 +82,14 @@ if (AccountRoleFilter::isUserAccount($userId)) {
                             <a class="nav-link" href="<?= WEB_URL . '/admin/Funciones.php' ?>">Funciones</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= WEB_URL . '/admin/Boletos.php' ?>">Boletos</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="<?= WEB_URL . '/admin/Usuarios.php' ?>">Usuarios</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?= WEB_URL . '/admin/Empleados.php' ?>">Empleados</a>
                         </li>
                         <li class="menu">Reporte General</li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Reporte general ventas</a>
+                            <a class="nav-link" href="<?=WEB_URL?>/admin/ventasAdm.php">Reporte general ventas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Estadisticas</a>
+                            <a class="nav-link" href="<?=WEB_URL?>/admin/estadisticas.php">Estadisticas</a>
                         </li>
                         <?php } ?>
                         <li class="menu">Opciones</li>

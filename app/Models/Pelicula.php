@@ -33,10 +33,20 @@ class Pelicula extends PeliculaDB {
         return Pelicula::_fetchQuery("SELECT {$tablename}.* FROM {$funcionesTablename},{$tablename} WHERE {$funcionesTablename}.id_pelicula = {$tablename}.id AND fecha >= CURRENT_DATE AND {$tablename}.wallpaper != '' GROUP BY {$funcionesTablename}.id_pelicula");
     }
 
-    public static function getPeliculasInCartelera(){
+    public static function getPeliculasInCartelera($fecha = "", $onlyThisPeliId = 0){
         $tablename = Self::getTablename();
         $funcionesTablename = Funcion::getTablename();
-        return Pelicula::_fetchQuery("SELECT {$tablename}.* FROM {$funcionesTablename},{$tablename} WHERE {$funcionesTablename}.id_pelicula = {$tablename}.id AND fecha >= CURRENT_DATE GROUP BY {$funcionesTablename}.id_pelicula");
+
+        $peliRestriction = "";
+        if($onlyThisPeliId > 0)
+            $peliRestriction = "AND {$funcionesTablename}.id_pelicula = {$onlyThisPeliId} ";
+
+        if($fecha == "")
+            $fecha = ">= CURRENT_DATE";
+        else
+            $fecha = "= '{$fecha}'";
+
+        return Pelicula::_fetchQuery("SELECT {$tablename}.* FROM {$funcionesTablename},{$tablename} WHERE {$funcionesTablename}.id_pelicula = {$tablename}.id AND fecha {$fecha} {$peliRestriction} GROUP BY {$funcionesTablename}.id_pelicula");
     }
 
     public function toArray(): array{

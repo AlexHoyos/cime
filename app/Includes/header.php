@@ -4,6 +4,7 @@ use CIME\Models\Usuario;
 
     $userName = "";
     $userId = 0;
+    $usuario = null;
     if(isset($_SESSION["userName"])){
 
         if(!empty($_SESSION["userName"]))
@@ -65,10 +66,10 @@ use CIME\Models\Usuario;
                 <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="<?=WEB_URL?>/cartelera.php">Cartelera</a>
+                        <a class="nav-link" href="<?=WEB_URL?>/index.php">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?=WEB_URL?>/proximamente.php">Proximamente</a>
+                        <a class="nav-link active" aria-current="page" href="<?=WEB_URL?>/cartelera.php">Cartelera</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<?=WEB_URL.'/nosotros.php'?>">Sobre Nosotros</a>
@@ -80,7 +81,7 @@ use CIME\Models\Usuario;
                 </ul>
             <?php
 
-            if($userId == 0){ ?>
+            if($usuario == null){ ?>
                 <ul class="navbar-nav ms-md-auto">
                     <li class="nav-item">
                         <a class="nav-link align-self-right" href="<?=WEB_URL?>/login.php">Iniciar Sesión</a>
@@ -91,18 +92,18 @@ use CIME\Models\Usuario;
                 </ul>
             <?php } else { ?>
                 <ul class="navbar-nav ms-md-auto">
-                    <?php
-                    if($usuario->getRol()->getNombre() != "usr"){
-                    ?>
+
+                    <?php if($usuario->getRol()->getNombre() != "usr"){ ?>
                     <li class="nav-item">
                         <a class="nav-link" href="<?=WEB_URL?>/admin">Dashboard</a>
                     </li>
                     <?php } ?>
+
                     <li class="nav-item">
                         <a class="nav-link align-self-right" href="/config.php"><?=$userName?></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?=WEB_URL?>/boletos.php">Boletos</a>
+                        <a class="nav-link" href="<?=WEB_URL?>/historialboleto.php">Boletos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<?=WEB_URL?>/logout.php">Cerrar Sesión</a>
