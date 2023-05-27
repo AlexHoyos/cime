@@ -26,7 +26,7 @@ if($user instanceof Usuario){
     foreach($boletos as $key => $boleto){
         $funcion = $boleto->getFuncionInstance();
         $fecha_funcion = date('Y-m-d', strtotime($funcion->getFecha()));
-        if($fecha_funcion >= $fechaHoy->format('Y-m-d')){
+        if($fecha_funcion >= $fechaHoy->format('Y-m-d') && $boleto->getEstado() != 3){
             $asientosReservados = AsientoReservado::getAsientosFromBoletoId($boleto->getId());
             $asientos = [];
             foreach($asientosReservados as $asientoReservado){
