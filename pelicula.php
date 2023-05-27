@@ -65,6 +65,11 @@ use CIME\Models\Pelicula;
                     </a>
 
                     <?php } ?>
+                    <?php 
+                        if(count($funciones) <= 0){
+                    ?>
+                    <p>No se encontraron proximas funciones:(</p>
+                    <?php } ?>
                 </div>
 
             </div>
