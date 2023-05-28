@@ -55,7 +55,7 @@ use CIME\Models\Usuario;
             <img class="position-absolute" style="left:0;" src="<?= WEB_URL ?>/app/Storage/LOGO.png">
             <form action="<?=WEB_URL?>/busqueda.php" method="GET" role="search" class=" d-flex align-items-center justify-content-center" >
                 <input type="text" class="buscar px-2" name="search" placeholder="Buscar pelicula...">
-                <button type="button" class="btnbuscar">Buscar</button>
+                <button type="submit" class="btnbuscar">Buscar</button>
             </form>
         </div>
         <nav class="navbar navbar-expand-lg p-0" id="headerNav">
