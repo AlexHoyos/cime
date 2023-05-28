@@ -35,7 +35,7 @@ class PUTPeliculasMethod extends ACRUDControllerMethod {
                     $wallpaperName = "wallpaper_".uniqid(time().str_replace(" ", "", $params["titulo"])).".jpg";
 
             if(!empty($posterName)){
-                if(move_uploaded_file($params["poster"]["tmp_name"], WEB_PATH.'/Storage/peliculas/'.$posterName) == false)
+                if(move_uploaded_file($params["poster"]["tmp_name"], WEB_PATH.'/Storage/peliculas/'.$posterName))
                     $peli->setPortada($posterName);
             }
 
