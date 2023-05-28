@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 :root
 {
     --azul:#2874A6;
@@ -5,7 +6,7 @@
     --light: #dddddd;
     --gris-oscuro:#222222;
     --gris-claro:#333333;
-    --fuente:'Tilt Neon', cursive;
+    --fuente: 'Poppins', sans-serif;
 }
 * {
     font-family: var(--fuente);
