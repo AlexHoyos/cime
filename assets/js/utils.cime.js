@@ -38,3 +38,13 @@ function imprimirElemento(elemento){
     ventana.close();
     return true;
   }
+
+function loadingButton(button, enabled = false){
+    button.disabled = (enabled == false)
+    if(enabled == false){
+        button.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>' + button.innerHTML
+    } else {
+        button.removeChild(button.firstChild)
+    }
+    
+}

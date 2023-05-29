@@ -6,6 +6,10 @@ function irAPaso2(e){
         url: 'app/Controllers/RecuperacionCuentaController.php?paso=1&correo='+correo,
         method: 'POST',
         data: {},
+        beforeSend: function(){
+          var button = document.getElementById("sendCodeBtn")
+          loadingButton(button)
+        },
         success: function(response) {
             window.location.href="/recuperacion.php?paso=2&correo="+correo
         },
@@ -24,6 +28,9 @@ function recuperacion(e){
 
     $("#error").html("");
     $("#success").html("");
+
+
+
     $.ajax({
         url: 'app/Controllers/RecuperacionCuentaController.php?paso=2&correo='+$("#correo").val(),
         method: 'POST',
@@ -41,6 +48,9 @@ function recuperacion(e){
         error: function(jqXHR, textStatus, errorThrown) {
           // Hubo un error en la petición
           $("#error").html(jqXHR.responseJSON.error);
+        },
+        complete: function (){
+          loadingButton(button, true)
         }
       });
 

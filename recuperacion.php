@@ -32,7 +32,7 @@ use CIME\Filters\SessionFilter;
     </div>
    
     <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-block">Enviar Código</button>
+        <button type="submit" class="btn btn-primary btn-block" id="sendCodeBtn">Enviar Código</button>
     </div>
      
 </form>
@@ -82,6 +82,7 @@ use CIME\Filters\SessionFilter;
     }
 ?>
 <script src="assets/js/recuperacion.js"></script>
+<script src="assets/js/utils.cime.js"></script>
 <?php
     include './app/Includes/footer.php';
 
