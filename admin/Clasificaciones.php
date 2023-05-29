@@ -193,10 +193,18 @@ use CIME\Models\Clasificacion;
         var descripcion = $("#descripcionClasificacion").val()
         var ninos = $("input[name='ninos']:checked").val();
         var adols = $("input[name='adols']:checked").val();
+        var button = document.getElementById("saveBtn")
         $.ajax({
             type: "POST",
             url: '../app/Controllers/CRUD/Clasificaciones.php',
             data: {nombre:nombre, descripcion:descripcion, ninos:ninos, adols:adols},
+            beforeSend: function(){
+                
+                loadingButton(button)
+            },
+            complete: function(){
+                loadingButton(button, true)
+            },
             success: function(response)
             {
 
@@ -216,10 +224,18 @@ use CIME\Models\Clasificacion;
         var descripcion = $("#descripcionClasificacion").val()
         var ninos = $("input[name='ninos']:checked").val();
         var adols = $("input[name='adols']:checked").val();
+        var button = document.getElementById("saveBtn")
         $.ajax({
             type: "PUT",
             url: '../app/Controllers/CRUD/Clasificaciones.php',
             data: {id:id, nombre:nombre, descripcion:descripcion, ninos:ninos, adols:adols},
+            beforeSend: function(){
+                
+                loadingButton(button)
+            },
+            complete: function(){
+                loadingButton(button, true)
+            },
             success: function(response)
             {
 

@@ -226,6 +226,7 @@ use CIME\Models\Pelicula;
     function add(){
        
         var data = getFormData()
+        var button = document.getElementById("saveBtn")
 
         $.ajax({
             type: "POST",
@@ -233,6 +234,13 @@ use CIME\Models\Pelicula;
             data: data,
             processData: false,  // tell jQuery not to process the data
             contentType: false,   // tell jQuery not to set contentType
+            beforeSend: function(){
+                
+                loadingButton(button)
+            },
+            complete: function(){
+                loadingButton(button, true)
+            },
             success: function(response)
             {
                 alert("Pelicula agregada!");
@@ -248,12 +256,20 @@ use CIME\Models\Pelicula;
     function edit(){
         var data = getFormData()
         data.append('isPUT', true)
+        var button = document.getElementById("saveBtn")
         $.ajax({
             type: "POST",
             url: '../app/Controllers/CRUD/Peliculas.php',
             data: data,
             processData: false,  // tell jQuery not to process the data
             contentType: false,   // tell jQuery not to set contentType
+            beforeSend: function(){
+                
+                loadingButton(button)
+            },
+            complete: function(){
+                loadingButton(button, true)
+            },
             success: function(response)
             {
                 alert("Pelicula actualizada!");

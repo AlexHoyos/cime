@@ -297,10 +297,18 @@ use CIME\Models\Sala;
 
     function add(){
         var data = getData()
+        var button = document.getElementById("saveBtn")
         $.ajax({
             type: "POST",
             url: '../app/Controllers/CRUD/Funciones.php',
             data: data,
+            beforeSend: function(){
+                
+                loadingButton(button)
+            },
+            complete: function(){
+                loadingButton(button, true)
+            },
             success: function(response)
             {
 
@@ -317,10 +325,18 @@ use CIME\Models\Sala;
 
     function edit(){
         var data = getData()
+        var button = document.getElementById("saveBtn")
         $.ajax({
             type: "PUT",
             url: '../app/Controllers/CRUD/Funciones.php',
             data: data,
+            beforeSend: function(){
+                
+                loadingButton(button)
+            },
+            complete: function(){
+                loadingButton(button, true)
+            },
             success: function(response)
             {
 

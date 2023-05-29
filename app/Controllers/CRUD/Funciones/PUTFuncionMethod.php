@@ -34,7 +34,7 @@ class PUTFuncionMethod extends ACRUDControllerMethod {
         $precioAdol = floatval($params["precio_adol"]);
         $precioNino = floatval($params["precio_nino"]);
         
-        if($idFuncion <= 0 || $idSala <= 0 || $idPelicula <= 0 || $idFormato <= 0 || $idIdioma <= 0 || $precioAdulto <= 0 || $precioAdol <= 0 || $precioNino > 0){
+        if($idFuncion <= 0 || $idSala <= 0 || $idPelicula <= 0 || $idFormato <= 0 || $idIdioma <= 0 || $precioAdulto <= 0 || $precioAdol <= 0 || $precioNino <= 0){
             $this->response["error"] = "Algunos campos estan vacios";
             return;
         }

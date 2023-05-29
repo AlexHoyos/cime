@@ -212,10 +212,19 @@ use CIME\Models\Sala;
         }).promise().done(function(){
             var data = getData();
             data["asientos[]"] = asientos
+            var button = document.getElementById("saveBtn")
             $.ajax({
                 type: "POST",
                 url: '../app/Controllers/CRUD/Salas.php',
                 data: data,
+
+                beforeSend: function(){
+                    
+                    loadingButton(button)
+                },
+                complete: function(){
+                    loadingButton(button, true)
+                },
                 success: function(response)
                 {
 
@@ -265,10 +274,18 @@ use CIME\Models\Sala;
         }).promise().done(function(){
             var data = getData();
             data["asientos[]"] = asientos
+            var button = document.getElementById("saveBtn")
             $.ajax({
                 type: "PUT",
                 url: '../app/Controllers/CRUD/Salas.php',
                 data: data,
+                beforeSend: function(){
+                    
+                    loadingButton(button)
+                },
+                complete: function(){
+                    loadingButton(button, true)
+                },
                 success: function(response)
                 {
                     alert("Sala actualizada!");
