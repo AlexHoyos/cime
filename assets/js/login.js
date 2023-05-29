@@ -14,7 +14,7 @@ function login(e){
         },
         error: function(jqXHR, textStatus, errorThrown) {
           // Hubo un error en la petición
-          $("#error").html(jqXHR.responseJSON);
+          $("#error").html(jqXHR.responseJSON.error);
         }
       });
 
