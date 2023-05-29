@@ -212,8 +212,9 @@ use CIME\Models\Clasificacion;
                 window.location.reload()
             },
             error: function(response){
-                console.log({nombre:nombre, descripcion:descripcion, ninos:ninos, adols:adols})
                 console.log(response)
+                alert("Error al agregar clasificacion")
+                alert(response.responseJSON.error)
             }
        });
     }
@@ -243,8 +244,10 @@ use CIME\Models\Clasificacion;
                 window.location.reload()
             },
             error: function(response){
-                console.log({id:id, nombre:nombre, descripcion:descripcion, ninos:ninos, adols:adols})
+                
                 console.log(response)
+                alert("Error al editar clasificación")
+                alert(response.responseJSON.error)
             }
        });
     }
@@ -261,6 +264,7 @@ use CIME\Models\Clasificacion;
             },
             error: function(response){
                 console.log(response)
+                alert("Error al eliminar clasificación, asegurese que no este relacionada a alguna pelicula")
             }
        });
     }

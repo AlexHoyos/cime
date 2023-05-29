@@ -234,6 +234,8 @@ use CIME\Models\Sala;
                 error: function(response){
                     console.log(data)
                     console.log(response)
+                    alert("Error al agregar sala")
+                    alert(response.responseJSON.error)
                 }
             });
 
@@ -294,6 +296,8 @@ use CIME\Models\Sala;
                 error: function(response){
                     console.log(data)
                     console.log(response)
+                    alert("Error al actualizar sala")
+                    alert(response.responseJSON.error)
                 }
             });
 
@@ -312,6 +316,7 @@ use CIME\Models\Sala;
             },
             error: function(response){
                 console.log(response)
+                alert("Error al eliminar la sala, asegurese que no haya alguna función relacionada con ella")
             }
        });
     }

@@ -249,6 +249,8 @@ use CIME\Models\Pelicula;
             error: function(response){
                 console.log(data)
                 console.log(response)
+                alert("Error al agregar pelicula")
+                alert(response.responseJSON.error)
             }
        });
     }
@@ -278,6 +280,7 @@ use CIME\Models\Pelicula;
             error: function(response){
                 console.log(data)
                 console.log(response)
+                alert("Error al actualizar pelicula")
                 alert(response.responseJSON.error)
             }
        });
@@ -295,6 +298,7 @@ use CIME\Models\Pelicula;
             },
             error: function(response){
                 console.log(response)
+                alert("Error al eliminar la pelicula! Asegurate que no esta asignada a alguna función")
             }
        });
     }

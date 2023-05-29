@@ -318,6 +318,7 @@ use CIME\Models\Sala;
             error: function(response){
                 console.log(data)
                 console.log(response)
+                alert("Error al agregar función")
                 alert(response.responseJSON.error)
             }
        });
@@ -346,6 +347,7 @@ use CIME\Models\Sala;
             error: function(response){
                 console.log(data)
                 console.log(response)
+                alert("Error al actualizar función")
                 alert(response.responseJSON.error)
             }
        });
@@ -363,6 +365,7 @@ use CIME\Models\Sala;
             },
             error: function(response){
                 console.log(response)
+                alert("Error al eliminar función, probablemente haya boletos ya reservados")
             }
        });
     }
