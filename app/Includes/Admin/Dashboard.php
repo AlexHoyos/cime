@@ -94,7 +94,7 @@ if($admin == null){
                         <?php } ?>
                         <li class="menu">Opciones</li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Salir</a>
+                            <a class="nav-link" href="<?=WEB_URL?>">Salir</a>
                         </li>
                     </ul>
                 </div>
